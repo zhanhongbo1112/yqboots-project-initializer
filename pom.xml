@@ -34,6 +34,14 @@
             <version>${yqboots.project.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.yqboots.project</groupId>
+            <artifactId>project-layout</artifactId>
+            <classifier>resources</classifier>
+            <version>${yqboots.project.version}</version>
+            <type>zip</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
         </dependency>
@@ -44,6 +52,11 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
             <version>${poi.version}</version>
         </dependency>
         <dependency>
