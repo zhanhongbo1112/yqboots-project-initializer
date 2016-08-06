@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:yq="http://www.yqboots.com" xmlns="http://www.w3.org/1999/xhtml" layout:decorator="layouts/layout">
+<head>
+  <title>Project Initializer</title>
+  <link rel="stylesheet" href="../../../META-INF/resources/theme/application.css" th:remove="all"/>
+  <link rel="stylesheet" href="../../../META-INF/resources/theme/css/theme-colors/green.css" th:remove="all"/>
+  <link rel="stylesheet" href="../../../META-INF/resources/dojo/jquery/skyforms/css/sky-forms.css" th:remove="all"/>
+  <link rel="stylesheet" href="../../../META-INF/resources/dojo/jquery/skyforms/custom/custom-sky-forms.css"
+        th:remove="all"/>
+</head>
+<body>
+<div layout:fragment="breadcrumbs">
+  <yq:breadcrumbs menu="PROJECT_INITIALIZER" />
+</div>
+<div layout:fragment="content" class="container content">
+  <div class="margin-bottom-40">
+    <h3>Starts your application with <a href="http://maven.apache.org" target="_blank">Maven</a>, <a
+        href="http://www.thymeleaf.org/" target="_blank">Thymeleaf</a>,
+      <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> and <a
+          href="http://spring.io/projects" target="_blank">Spring</a> NOW!</h3>
+
+    <form class="sky-form" action="#" th:action="@{/project/initializer/}" th:object="${model}" method="post">
+      <header>Project Metadata</header>
+
+      <div class="row">
+        <div class="col-md-9">
+          <fieldset>
+            <div class="row">
+              <section class="col col-4">
+                <label class="label">Name:</label>
+                <label class="input">
+                  <input type="text" maxlength="30" th:field="*{metadata.name}" th:errorclass="state-error"/>
+                  <b class="tooltip tooltip-top-right">Project Name</b>
+                </label>
+
+                <p th:if="${#fields.hasErrors('metadata.name')}" th:errors="*{metadata.name}"></p>
+              </section>
+              <section class="col col-8">
+                <label class="label">Description:</label>
+                <label class="input">
+                  <input type="text" th:field="*{metadata.description}" maxlength="64" th:errorclass="state-error"/>
+                  <b class="tooltip tooltip-top-right">Some description about the project</b>
+                </label>
+
+                <p th:if="${#fields.hasErrors('metadata.description')}" th:errors="*{metadata.description}"></p>
+              </section>
+            </div>
+            <div class="row">
+              <section class="col col-6">
+                <label class="label">Group:</label>
+                <label class="input">
+                  <input type="text" th:field="*{metadata.groupId}" maxlength="30" th:errorclass="state-error"/>
+                  <b class="tooltip tooltip-top-right">For example: com.company.project</b>
+                </label>
+
+                <p th:if="${#fields.hasErrors('metadata.groupId')}" th:errors="*{metadata.groupId}"></p>
+              </section>
+              <section class="col col-6">
+                <label class="label">Artifact:</label>
+                <label class="input">
+                  <input type="text" th:field="*{metadata.artifactId}" maxlength="20" th:errorclass="state-error"/>
+                  <b class="tooltip tooltip-top-right">For example: project-core</b>
+                </label>
+
+                <p th:if="${#fields.hasErrors('metadata.artifactId')}" th:errors="*{metadata.artifactId}"></p>
+              </section>
+            </div>
+          </fieldset>
+        </div>
+        <div class="col-md-3">
+          <fieldset>
+            <section>
+              <label class="label">Theme Skin:</label>
+              <label class="select">
+                <select th:field="*{theme.skin}">
+                  <option value="LIGHT">Light</option>
+                  <option value="DARK">Dark</option>
+                </select>
+                <i></i>
+              </label>
+            </section>
+            <section>
+              <label class="label">Theme Color:</label>
+              <label class="select">
+                <select th:field="*{theme.color}">
+                  <option value="GREEN">Green</option>
+                  <option value="BLUE">Blue</option>
+                  <option value="ORANGE">Orange</option>
+                  <option value="RED">Red</option>
+                  <option value="LIGHT">Light</option>
+                  <option value="PURPLE">Purple</option>
+                  <option value="AQUA">Aqua</option>
+                  <option value="BROWN">Brown</option>
+                  <option value="DARK_BLUE">Dark Blue</option>
+                  <option value="LIGHT_GREEN">Light Green</option>
+                  <option value="DARK_RED">Dark Red</option>
+                  <option value="TEAL">Teal</option>
+                </select>
+                <i></i>
+              </label>
+            </section>
+          </fieldset>
+        </div>
+      </div>
+      <footer>
+        <button type="submit" class="btn-u">Submit</button>
+      </footer>
+    </form>
+  </div>
+</div>
+<script src="../../../META-INF/resources/dojo/jquery.js" th:remove="all"></script>
+<script src="../../../META-INF/resources/dojo/bootstrap.js" th:remove="all"></script>
+</body>
+</html>

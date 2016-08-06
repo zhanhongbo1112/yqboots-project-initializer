@@ -1,0 +1,58 @@
+#set($themeSkin = $StringUtils.lowerCase($context.getTheme().getSkin().name()))
+#if($themeSkin == "light")
+    #set($themeSkin = "")
+    #set($isDark = false)
+#end
+#set($themeColor = $StringUtils.lowerCase($context.getTheme().getColor().name()) + ".css")
+#set($themeColor = $StringUtils.replace($themeColor, "_", "-"))
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE" th:text="#{app.name}">YuQi</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta content="YuQi Projects" name="description"/>
+  <meta content="Eric H B Zhan" name="author"/>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../../META-INF/resources/favicon.ico" th:href="@{/favicon.ico}"/>
+  <link rel="stylesheet" href="../../META-INF/resources/theme/application.css" th:href="@{/theme/application.css}"/>
+
+  <link rel="stylesheet" href="../../META-INF/resources/theme/css/theme-colors/$themeColor"
+        th:href="@{/theme/css/theme-colors/$themeColor}"/>
+#if($isDark)
+  <link rel="stylesheet" href="../../META-INF/resources/theme/css/theme-skins/dark.css"
+        th:href="@{/theme/css/theme-skins/dark.css}"/>
+#end
+</head>
+<body class="$themeSkin header-fixed header-fixed-space-default">
+<div class="wrapper">
+  <header th:replace="layouts/header :: header">&nbsp;</header>
+  <div layout:fragment="breadcrumbs">
+    <div class="breadcrumbs" th:remove="all">
+      <div class="container">
+        <h1 class="pull-left">TODO Page</h1>
+        <ul class="pull-right breadcrumb">
+          <li><a href="#">Home</a></li>
+          <li class="active">TODO Page</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div layout:fragment="content" class="container content">
+    <h1>Thanks for using projects built by YuQi</h1>
+
+    <p>Hello YuQi Project Initializer</p>
+  </div>
+  <footer th:replace="layouts/footer :: footer">&nbsp;</footer>
+</div>
+<script src="../../META-INF/resources/dojo/dojo/dojo.js" th:src="@{/dojo/dojo/dojo.js}"
+        data-dojo-config="async: true"></script>
+<script src="../../META-INF/resources/dojo/jquery.js" th:src="@{/dojo/jquery.js}"></script>
+<script>
+  require(['baf/main', 'jquery', 'jquery/migrate', 'bootstrap', 'dojo/domReady!'], function (app) {
+    app.startup();
+  });
+</script>
+</body>
+</html>
