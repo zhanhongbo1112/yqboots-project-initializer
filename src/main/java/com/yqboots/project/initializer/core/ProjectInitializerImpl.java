@@ -71,27 +71,20 @@ public class ProjectInitializerImpl implements ProjectInitializer {
         velocityContext.put("StringUtils", StringUtils.class);
 
         Template template;
-        Writer writer = null;
 
         final List<FileBuilder> builders = getVelocityEngine().getBuilders();
         for (FileBuilder builder : builders) {
             if (!getVelocityEngine().resourceExists(builder.getTemplate())) {
-                LOG.warn("Template {0} not found, ignore...", builder.getTemplate());
+                LOG.warn("Template {} not found, ignore...", builder.getTemplate());
                 continue;
             }
 
             template = getVelocityEngine().getTemplate(builder.getTemplate());
 
-            try {
+            try (Writer writer = new FileWriter(builder.getFile(targetPath, context).toFile())) {
                 // retrieve the root path of the target project
-                writer = new FileWriter(builder.getFile(targetPath, context).toFile());
-
                 template.merge(velocityContext, writer);
                 writer.flush();
-            } finally {
-                if (writer != null) {
-                    writer.close();
-                }
             }
         }
 
