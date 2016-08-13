@@ -11,7 +11,7 @@
 
     <groupId>com.yqboots.project</groupId>
     <artifactId>project-initializer</artifactId>
-    <version>1.0.0.SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <name>Project Initializer</name>
     <description>Defines the Project Initializer Service</description>
@@ -30,17 +30,25 @@
         </dependency>
         <dependency>
             <groupId>com.yqboots.project</groupId>
-            <artifactId>project-web</artifactId>
+            <artifactId>project-thymeleaf</artifactId>
+            <version>${yqboots.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yqboots.project</groupId>
+            <artifactId>project-menu</artifactId>
+            <version>${yqboots.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yqboots.project</groupId>
+            <artifactId>project-data-dict</artifactId>
             <version>${yqboots.project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.yqboots.project</groupId>
             <artifactId>project-layout</artifactId>
-            <classifier>resources</classifier>
             <version>${yqboots.project.version}</version>
-            <type>zip</type>
-            <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
@@ -79,43 +87,20 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <resources>
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>${project.build.directory}/generated-resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.yqboots.project.initializer.Application</mainClass>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack-shared-resources</id>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
+    <profiles>
+        <profile>
+            <id>test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/generated-resources</outputDirectory>
-                            <includeGroupIds>com.yqboots.project</includeGroupIds>
-                            <includeArtifactIds>project-layout</includeArtifactIds>
-                            <includeClassifiers>resources</includeClassifiers>
-                            <excludeTransitive>true</excludeTransitive>
+                            <mainClass>com.yqboots.project.initializer.Application</mainClass>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

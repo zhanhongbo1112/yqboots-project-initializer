@@ -20,6 +20,8 @@ package com.yqboots.project.initializer.core;
 import com.yqboots.fss.util.ZipUtils;
 import com.yqboots.project.initializer.autoconfigure.ProjectInitializerProperties;
 import com.yqboots.project.initializer.core.builder.FileBuilder;
+import com.yqboots.project.initializer.core.builder.excel.ProjectFileBuilder;
+import com.yqboots.project.initializer.core.builder.TemplateBuilder;
 import com.yqboots.project.initializer.core.support.ProjectVelocityEngine;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -70,21 +72,28 @@ public class ProjectInitializerImpl implements ProjectInitializer {
         velocityContext.put(ProjectContext.KEY, context);
         velocityContext.put("StringUtils", StringUtils.class);
 
-        Template template;
-
         final List<FileBuilder> builders = getVelocityEngine().getBuilders();
         for (FileBuilder builder : builders) {
-            if (!getVelocityEngine().resourceExists(builder.getTemplate())) {
-                LOG.warn("Template {} not found, ignore...", builder.getTemplate());
-                continue;
+            if (builder instanceof TemplateBuilder) {
+                TemplateBuilder _builder = (TemplateBuilder) builder;
+                if (!getVelocityEngine().resourceExists(_builder.getTemplate())) {
+                    LOG.warn("Template {} not found, ignore...", _builder.getTemplate());
+                    continue;
+                }
+
+                Template template = getVelocityEngine().getTemplate(_builder.getTemplate());
+
+                try (Writer writer = new FileWriter(builder.getFile(targetPath, context).toFile())) {
+                    // retrieve the root path of the target project
+                    template.merge(velocityContext, writer);
+                    writer.flush();
+                }
             }
 
-            template = getVelocityEngine().getTemplate(builder.getTemplate());
-
-            try (Writer writer = new FileWriter(builder.getFile(targetPath, context).toFile())) {
-                // retrieve the root path of the target project
-                template.merge(velocityContext, writer);
-                writer.flush();
+            if (builder instanceof ProjectFileBuilder) {
+                ProjectFileBuilder _builder = (ProjectFileBuilder) builder;
+                // call getFile to generate files
+                _builder.getFiles(targetPath, context);
             }
         }
 

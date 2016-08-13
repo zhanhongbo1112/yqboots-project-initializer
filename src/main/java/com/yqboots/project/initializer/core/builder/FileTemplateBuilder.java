@@ -6,16 +6,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016-06-11.
  */
-public class FileBuilderImpl implements FileBuilder {
+public class FileTemplateBuilder implements FileBuilder, TemplateBuilder {
     private final String template;
 
     private final String path;
 
-    public FileBuilderImpl(final String template, final String path) {
+    public FileTemplateBuilder(final String template, final String path) {
         this.template = template;
         this.path = path;
     }
@@ -38,7 +39,12 @@ public class FileBuilderImpl implements FileBuilder {
         return result;
     }
 
-    public String getPath() {
+    @Override
+    public List<Path> getFiles(final Path root, final ProjectContext context) throws IOException {
+        throw new UnsupportedOperationException();
+    }
+
+    protected String getPath() {
         return path;
     }
 }

@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 /**
  * Created by Administrator on 2016-06-12.
  */
-public class ResourcesFileBuilder extends FileBuilderImpl {
+public class ResourcesFileBuilder extends FileTemplateBuilder {
     public static final String ROOT = "/src/main/resources";
 
     public ResourcesFileBuilder(final String template, final String path) {

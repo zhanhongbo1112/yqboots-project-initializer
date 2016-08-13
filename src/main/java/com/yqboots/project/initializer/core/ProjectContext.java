@@ -3,6 +3,7 @@ package com.yqboots.project.initializer.core;
 import com.yqboots.project.initializer.core.theme.Theme;
 
 import javax.validation.Valid;
+import java.io.InputStream;
 import java.io.Serializable;
 
 /**
@@ -16,6 +17,8 @@ public class ProjectContext implements Serializable {
     private ProjectMetadata metadata;
 
     private Theme theme;
+
+    private InputStream file;
 
     public ProjectMetadata getMetadata() {
         return metadata;
@@ -31,5 +34,13 @@ public class ProjectContext implements Serializable {
 
     public void setTheme(Theme theme) {
         this.theme = theme;
+    }
+
+    public InputStream getFile() {
+        return file;
+    }
+
+    public void setFile(final InputStream file) {
+        this.file = file;
     }
 }

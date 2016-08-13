@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 /**
  * Created by Administrator on 2016-06-12.
  */
-public class JavaFileBuilder extends FileBuilderImpl {
+public class JavaFileBuilder extends FileTemplateBuilder {
     public static final String ROOT = "/src/main/java";
 
     public JavaFileBuilder(final String template, final String path) {
