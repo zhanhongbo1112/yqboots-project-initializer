@@ -1,6 +1,7 @@
 package com.yqboots.project.initializer.core.builder;
 
-import com.yqboots.project.initializer.core.ProjectContext;
+import com.yqboots.project.initializer.core.DomainMetadata;
+import com.yqboots.project.initializer.core.ProjectMetadata;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,9 +18,16 @@ public class ResourcesFileBuilder extends FileTemplateBuilder {
     }
 
     @Override
-    public Path getFile(final Path root, final ProjectContext context) throws IOException {
+    public Path getFile(final Path root, final ProjectMetadata metadata) throws IOException {
         Path _root = Paths.get(root.toAbsolutePath() + ROOT);
 
-        return super.getFile(_root, context);
+        return super.getFile(_root, metadata);
+    }
+
+    @Override
+    public Path getFile(final Path root, final ProjectMetadata metadata, final DomainMetadata domainMetadata) throws IOException {
+        Path _root = Paths.get(root.toAbsolutePath() + ROOT);
+
+        return super.getFile(_root, metadata, domainMetadata);
     }
 }

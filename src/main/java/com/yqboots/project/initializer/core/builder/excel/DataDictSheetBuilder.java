@@ -1,7 +1,9 @@
 package com.yqboots.project.initializer.core.builder.excel;
 
+import com.yqboots.fss.core.support.FileType;
 import com.yqboots.project.dict.core.DataDict;
 import com.yqboots.project.dict.core.DataDicts;
+import com.yqboots.project.initializer.core.ProjectMetadata;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -10,8 +12,12 @@ import org.springframework.oxm.Marshaller;
 import org.springframework.util.Assert;
 
 import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,13 +25,14 @@ import java.util.List;
  * Created by Administrator on 2016-08-11.
  */
 public class DataDictSheetBuilder extends AbstractSheetBuilder {
-    private static final String SHEET_NAME = "dicts";
-
     private final Marshaller marshaller;
 
-    public DataDictSheetBuilder(final Marshaller marshaller) {
-        super(SHEET_NAME);
+    private final DataDictProperties properties;
+
+    public DataDictSheetBuilder(final Marshaller marshaller, DataDictProperties properties) {
+        super(properties.getSheetName());
         this.marshaller = marshaller;
+        this.properties = properties;
     }
 
     @Override
@@ -46,7 +53,7 @@ public class DataDictSheetBuilder extends AbstractSheetBuilder {
     }
 
     @Override
-    protected void doBuild(final Sheet sheet) throws IOException {
+    protected void doBuild(final Path root, final ProjectMetadata metadata, final Sheet sheet) throws IOException {
         final List<DataDict> items = new ArrayList<>();
 
         for (Row row : sheet) {
@@ -58,11 +65,15 @@ public class DataDictSheetBuilder extends AbstractSheetBuilder {
             items.add(getDataDicts(row));
         }
 
-        // TODO: generate an XML for the application importing into Database
-        StringWriter sr = new StringWriter();
-        marshaller.marshal(new DataDicts(items), new StreamResult(sr));
+        // generate an XML for the application importing into Database
+        Path targetPath = Paths.get(root + File.separator + properties.getExportRelativePath());
+        if (!Files.exists(targetPath)) {
+            Files.createDirectories(targetPath);
+        }
 
-        System.out.println(sr.toString());
+        Path file = Paths.get(targetPath + File.separator + properties.getExportName() + FileType.DOT_XML);
+        FileWriter writer = new FileWriter(file.toFile());
+        marshaller.marshal(new DataDicts(items), new StreamResult(writer));
     }
 
     private DataDict getDataDicts(final Row row) {

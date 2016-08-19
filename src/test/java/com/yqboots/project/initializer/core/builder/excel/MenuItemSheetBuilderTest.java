@@ -14,15 +14,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.InputStream;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {Application.class})
-public class DataDictSheetBuilderTest {
+public class MenuItemSheetBuilderTest {
     private static final String TEMPLATE_PATH = "com/yqboots/project/initializer/core/workbook.xlsx";
 
     @Autowired
-    private DataDictSheetBuilder dataDictSheetBuilder;
+    private MenuItemSheetBuilder menuSheetBuilder;
 
     @Autowired
     private ProjectInitializerProperties properties;
@@ -32,9 +30,9 @@ public class DataDictSheetBuilderTest {
         try (InputStream inputStream = new ClassPathResource(TEMPLATE_PATH).getInputStream()) {
             XSSFWorkbook workbook = new XSSFWorkbook(OPCPackage.open(inputStream));
 
-            XSSFSheet sheet = workbook.getSheet("Dicts");
+            XSSFSheet sheet = workbook.getSheet("Menus");
 
-            dataDictSheetBuilder.build(properties.getTargetPath(), null, sheet);
+            menuSheetBuilder.build(properties.getTargetPath(), null, sheet);
         }
     }
 }

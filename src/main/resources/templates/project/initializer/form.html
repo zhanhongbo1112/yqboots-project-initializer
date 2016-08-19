@@ -20,7 +20,8 @@
       <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> and <a
           href="http://spring.io/projects" target="_blank">Spring</a> NOW!</h3>
 
-    <form class="sky-form" action="#" th:action="@{/project/initializer/}" th:object="${model}" method="post">
+    <form class="sky-form" action="#" th:action="@{/project/initializer/}" th:object="${model}" method="post"
+        enctype="multipart/form-data">
       <header>Project Metadata</header>
 
       <div class="row">
@@ -103,8 +104,24 @@
           </fieldset>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-12">
+          <fieldset>
+            <section>
+              <label class="label">Input a File (Excel Format)</label>
+              <label class="input input-file">
+                <div class="button">
+                  <input name="file" type="file" th:field="*{file}"
+                         onchange="this.parentNode.nextSibling.value = this.value"/>Browse
+                </div><input type="text" readonly="readonly"/>
+              </label>
+            </section>
+          </fieldset>
+        </div>
+      </div>
       <footer>
         <button type="submit" class="btn-u">Submit</button>
+        <button type="reset" class="btn-u">Reset</button>
       </footer>
     </form>
   </div>

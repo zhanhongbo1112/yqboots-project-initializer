@@ -1,6 +1,7 @@
 package com.yqboots.project.initializer.core.builder;
 
-import com.yqboots.project.initializer.core.ProjectContext;
+import com.yqboots.project.initializer.core.DomainMetadata;
+import com.yqboots.project.initializer.core.ProjectMetadata;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,11 +19,20 @@ public class JavaFileBuilder extends FileTemplateBuilder {
     }
 
     @Override
-    public Path getFile(final Path root, final ProjectContext context) throws IOException {
+    public Path getFile(final Path root, final ProjectMetadata metadata) throws IOException {
         // dynamic calculate the java file path based on groupId
-        final String groupPath = context.getMetadata().getGroupPath();
+        final String groupPath = metadata.getGroupPath();
         Path _root = Paths.get(root.toAbsolutePath() + ROOT + File.separator + groupPath);
 
-        return super.getFile(_root, context);
+        return super.getFile(_root, metadata);
+    }
+
+    @Override
+    public Path getFile(final Path root, final ProjectMetadata metadata, final DomainMetadata domainMetadata) throws IOException {
+        // dynamic calculate the java file path based on groupId
+        final String groupPath = metadata.getGroupPath();
+        Path _root = Paths.get(root.toAbsolutePath() + ROOT + File.separator + groupPath + File.separator + domainMetadata.getModule());
+
+        return super.getFile(_root, metadata, domainMetadata);
     }
 }

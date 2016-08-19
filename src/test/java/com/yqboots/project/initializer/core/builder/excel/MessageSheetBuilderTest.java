@@ -1,6 +1,7 @@
 package com.yqboots.project.initializer.core.builder.excel;
 
 import com.yqboots.project.initializer.Application;
+import com.yqboots.project.initializer.autoconfigure.ProjectInitializerProperties;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -17,21 +18,23 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {Application.class})
-public class MenuSheetBuilderTest {
-    private static final String TEMPLATE_PATH = "com/yqboots/project/initializer/core/builder/excel/workbook.xlsx";
+public class MessageSheetBuilderTest {
+    private static final String TEMPLATE_PATH = "com/yqboots/project/initializer/core/workbook.xlsx";
 
     @Autowired
-    private MenuSheetBuilder menuSheetBuilder;
+    private MessageSheetBuilder messageSheetBuilder;
+
+    @Autowired
+    private ProjectInitializerProperties properties;
 
     @Test
     public void testBuild() throws Exception {
-        InputStream is = new ClassPathResource(TEMPLATE_PATH).getInputStream();
-        XSSFWorkbook workbook = new XSSFWorkbook(OPCPackage.open(is));
+        try (InputStream inputStream = new ClassPathResource(TEMPLATE_PATH).getInputStream()) {
+            XSSFWorkbook workbook = new XSSFWorkbook(OPCPackage.open(inputStream));
 
-        XSSFSheet sheet = workbook.getSheet("Menus");
+            XSSFSheet sheet = workbook.getSheet("Messages");
 
-        menuSheetBuilder.build(sheet);
-
-        is.close();
+            messageSheetBuilder.build(properties.getTargetPath(), null, sheet);
+        }
     }
 }

@@ -17,12 +17,17 @@
  */
 package com.yqboots.project.initializer.core;
 
+import com.yqboots.project.initializer.core.theme.Theme;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 
 /**
  * Created by Administrator on 2016-05-28.
  */
 public interface ProjectInitializer {
-    Path startup(ProjectContext context) throws IOException;
+    Path startup(ProjectMetadata metadata, Theme theme) throws IOException;
+
+    Path startup(ProjectMetadata metadata, Theme theme, InputStream file) throws IOException;
 }

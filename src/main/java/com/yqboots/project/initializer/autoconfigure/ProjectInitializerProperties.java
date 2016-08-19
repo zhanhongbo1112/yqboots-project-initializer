@@ -19,6 +19,7 @@ package com.yqboots.project.initializer.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,25 +28,15 @@ import java.util.Map;
  */
 @ConfigurationProperties(prefix = "yqboots.project.initializer")
 public class ProjectInitializerProperties {
-    private String sourcePath;
-
-    private String targetPath;
+    private Path targetPath;
 
     private Map<String, String> properties = new HashMap<>();
 
-    public String getSourcePath() {
-        return sourcePath;
+    public Path getTargetPath() {
+        return this.targetPath;
     }
 
-    public void setSourcePath(String sourcePath) {
-        this.sourcePath = sourcePath;
-    }
-
-    public String getTargetPath() {
-        return targetPath;
-    }
-
-    public void setTargetPath(String targetPath) {
+    public void setTargetPath(Path targetPath) {
         this.targetPath = targetPath;
     }
 

@@ -1,14 +1,18 @@
 package com.yqboots.project.initializer.core.builder.excel;
 
+import com.yqboots.fss.core.support.FileType;
+import com.yqboots.project.initializer.core.ProjectMetadata;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +20,13 @@ import java.util.List;
  * Created by Administrator on 2016-08-11.
  */
 public class MessageSheetBuilder extends AbstractSheetBuilder {
-    private static final Logger LOG = LoggerFactory.getLogger(MessageSheetBuilder.class);
-
     private static final String PREFIX = "messages";
 
-    private static final String SHEET_NAME = "messages";
+    private final MessageProperties properties;
 
-    public MessageSheetBuilder() {
-        super(SHEET_NAME);
+    public MessageSheetBuilder(final MessageProperties properties) {
+        super(properties.getSheetName());
+        this.properties = properties;
     }
 
     @Override
@@ -39,22 +42,24 @@ public class MessageSheetBuilder extends AbstractSheetBuilder {
     }
 
     @Override
-    protected void doBuild(final Sheet sheet) throws IOException {
+    protected void doBuild(final Path root, final ProjectMetadata metadata, final Sheet sheet) throws IOException {
         Row firstRow = sheet.getRow(0);
 
         List<String> languages = getLanguages(firstRow);
 
+        Path path = Paths.get(root + File.separator + properties.getExportRelativePath());
         for (int i = 1; i <= languages.size(); i++) {
-            String fileName = PREFIX + "_" + languages.get(i - 1) + ".properties";
-            for (Row row : sheet) {
-                if (row.getRowNum() < 1) {
-                    continue;
-                }
-                String key = row.getCell(i - 1).getStringCellValue();
-                String value = row.getCell(i).getStringCellValue();
+            String fileName = PREFIX + "_" + languages.get(i - 1) + FileType.DOT_PROPERTIES;
+            try (FileWriter writer = new FileWriter(Paths.get(path + File.separator + fileName).toFile())) {
+                for (Row row : sheet) {
+                    if (row.getRowNum() < 1) {
+                        continue;
+                    }
+                    String key = row.getCell(0).getStringCellValue();
+                    String value = row.getCell(i).getStringCellValue();
 
-                LOG.info("{}={}", key, value);
-                // TODO: write the key + value to properties file
+                    writer.write(key + "=" + value + "\r\n");
+                }
             }
         }
     }

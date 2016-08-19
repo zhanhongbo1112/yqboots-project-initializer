@@ -1,9 +1,11 @@
 package com.yqboots.project.initializer.core.builder.excel;
 
+import com.yqboots.project.initializer.core.ProjectMetadata;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * Created by Administrator on 2016-08-11.
@@ -22,13 +24,13 @@ public abstract class AbstractSheetBuilder implements SheetBuilder {
     }
 
     @Override
-    public void build(final Sheet sheet) throws IOException {
+    public void build(final Path root, final ProjectMetadata metadata, final Sheet sheet) throws IOException {
         formatChecking(sheet);
 
-        doBuild(sheet);
+        doBuild(root, metadata, sheet);
     }
 
     protected abstract void formatChecking(final Sheet sheet);
 
-    protected abstract void doBuild(final Sheet sheet) throws IOException;
+    protected abstract void doBuild(final Path root, final ProjectMetadata metadata, final Sheet sheet) throws IOException;
 }

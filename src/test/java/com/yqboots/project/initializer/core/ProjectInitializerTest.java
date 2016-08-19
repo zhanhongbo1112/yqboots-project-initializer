@@ -25,31 +25,35 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.io.InputStream;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
 public class ProjectInitializerTest {
+    private static final String TEMPLATE_PATH = "com/yqboots/project/initializer/core/workbook.xlsx";
+
     @Autowired
     private ProjectInitializer initializer;
 
     @Test
     public void testStartup() throws Exception {
-        ProjectContext context = new ProjectContext();
-
         ProjectMetadata metadata = new ProjectMetadata();
         metadata.setGroupId("com.yqboots.test");
         metadata.setArtifactId("test-core");
         metadata.setName("Test Project");
         metadata.setDescription("Test Description");
 
-        context.setMetadata(metadata);
-
         Theme theme = new Theme();
         theme.setSkin(ThemeSkin.LIGHT);
         theme.setColor(ThemeColor.GREEN);
-        context.setTheme(theme);
 
-        initializer.startup(context);
+        Resource resource = new ClassPathResource(TEMPLATE_PATH);
+        try (InputStream inputStream = resource.getInputStream()) {
+            initializer.startup(metadata, theme, inputStream);
+        }
     }
 }

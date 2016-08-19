@@ -1,12 +1,12 @@
 package com.yqboots.project.initializer.web.controller;
 
-import com.yqboots.project.initializer.core.ProjectContext;
+import com.yqboots.fss.web.util.FssWebUtils;
+import com.yqboots.project.initializer.web.form.ProjectInitializerForm;
 import com.yqboots.project.initializer.core.ProjectInitializer;
 import com.yqboots.project.web.WebKeys;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,11 +14,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
@@ -34,8 +35,8 @@ public class ProjectInitializerController {
     private ProjectInitializer initializer;
 
     @ModelAttribute(WebKeys.MODEL)
-    public ProjectContext projectContext() {
-        return new ProjectContext();
+    public ProjectInitializerForm projectContext() {
+        return new ProjectInitializerForm();
     }
 
     @RequestMapping
@@ -44,26 +45,34 @@ public class ProjectInitializerController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public Object startup(@ModelAttribute(WebKeys.MODEL) @Valid final ProjectContext context,
+    public Object startup(@ModelAttribute(WebKeys.MODEL) @Valid final ProjectInitializerForm form,
                           final BindingResult bindingResult,
                           final ModelMap model) throws IOException {
         if (bindingResult.hasErrors()) {
             return HOME_URL;
         }
 
-        Path path = initializer.startup(context);
+        Path path;
 
-        HttpHeaders header = new HttpHeaders();
-        header.setContentType(new MediaType("application", "zip", StandardCharsets.UTF_8));
-        header.set("Content-Disposition", "attachment; filename=" + path.getFileName());
-        header.setContentLength(Files.size(path));
+        MultipartFile file = form.getFile();
+        if (file != null) {
+            try (InputStream inputStream = file.getInputStream()) {
+                path = initializer.startup(form.getMetadata(), form.getTheme(), inputStream);
+            }
+        } else {
+            path = initializer.startup(form.getMetadata(), form.getTheme());
+        }
 
+        HttpEntity<byte[]> result = FssWebUtils.downloadFile(path, new MediaType("application", "zip",
+                StandardCharsets.UTF_8));
+
+        // clear temporary folder
+        Path parent = path.getParent();
+        FileUtils.deleteDirectory(parent.toFile());
+
+        // clear model
         model.clear();
 
-        final byte[] result = Files.readAllBytes(path);
-
-        FileUtils.deleteDirectory((path.getParent().toFile()));
-
-        return new HttpEntity<>(result, header);
+        return result;
     }
 }

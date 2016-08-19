@@ -1,5 +1,7 @@
 package com.yqboots.project.initializer.core.builder.excel;
 
+import com.yqboots.fss.core.support.FileType;
+import com.yqboots.project.initializer.core.ProjectMetadata;
 import com.yqboots.project.menu.core.MenuItem;
 import com.yqboots.project.menu.core.MenuItems;
 import org.apache.commons.lang3.StringUtils;
@@ -10,22 +12,25 @@ import org.springframework.oxm.Marshaller;
 import org.springframework.util.Assert;
 
 import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringWriter;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016-08-11.
  */
-public class MenuSheetBuilder extends AbstractSheetBuilder {
-    private static final String SHEET_NAME = "menus";
-
+public class MenuItemSheetBuilder extends AbstractSheetBuilder {
     private final Marshaller marshaller;
 
-    public MenuSheetBuilder(final Marshaller marshaller) {
-        super(SHEET_NAME);
+    private final MenuItemProperties properties;
+
+    public MenuItemSheetBuilder(final Marshaller marshaller, MenuItemProperties properties) {
+        super(properties.getSheetName());
         this.marshaller = marshaller;
+        this.properties = properties;
     }
 
     @Override
@@ -49,7 +54,7 @@ public class MenuSheetBuilder extends AbstractSheetBuilder {
     }
 
     @Override
-    protected void doBuild(final Sheet sheet) throws IOException {
+    protected void doBuild(final Path root, final ProjectMetadata metadata, final Sheet sheet) throws IOException {
         final List<MenuItem> items = new ArrayList<>();
 
         for (Row row : sheet) {
@@ -61,12 +66,15 @@ public class MenuSheetBuilder extends AbstractSheetBuilder {
             items.add(getMenuItem(row));
         }
 
+        // generate an XML for the application importing into Database
+        Path targetPath = Paths.get(root + File.separator + properties.getExportRelativePath());
+        if (!Files.exists(targetPath)) {
+            Files.createDirectories(targetPath);
+        }
 
-        // TODO: generate an XML for the application importing into Database
-        StringWriter sr = new StringWriter();
-        marshaller.marshal(new MenuItems(items), new StreamResult(sr));
-
-        System.out.println(sr.toString());
+        Path file = Paths.get(targetPath + File.separator + properties.getExportName() + FileType.DOT_XML);
+        FileWriter writer = new FileWriter(file.toFile());
+        marshaller.marshal(new MenuItems(items), new StreamResult(writer));
     }
 
     private MenuItem getMenuItem(final Row row) {
