@@ -1,0 +1,49 @@
+#set($basePackage = $metadata.getGroupId() + "." + $domain.getModule())
+#set($groupId = $basePackage + ".core")
+package $groupId;
+
+#set($tableName = $domain.getModule() + "_" + $domain.getName())
+#set($domainName = $domain.getName())
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "$tableName")
+public class $domainName extends AbstractPersistable<Long> {
+#foreach($item in $domain.getProperties())
+    @Column(name="$item.getDbColumn()", nullable = $item.isNullable(), unique = $item.isUnique())
+    private $item.getFieldType() $item.getClassField();
+
+#end
+    /**
+     * Sets the id of the entity.
+     *
+     * @param id the id to set
+     */
+    @Override
+    public void setId(final Long id) {
+        super.setId(id);
+    }
+
+#foreach($item in $domain.getProperties())
+#set($getter = "get" + $StringUtils.capitalize($item.getClassField()))
+#if($item.getFieldType == "Boolean")
+    #set($setter = "is" + $StringUtils.capitalize($item.getClassField()))
+#else
+    #set($setter = "set" + $StringUtils.capitalize($item.getClassField()))
+#end
+#set($localField = "this." + $item.getClassField())
+    public $item.getFieldType() $getter() {
+        return $localField;
+    }
+
+    public void $setter(final $item.getFieldType() $item.getClassField() {
+        $localField = $item.getClassField();
+    }
+
+#end
+}
