@@ -25,9 +25,8 @@ public class ResourcesFileBuilder extends FileTemplateBuilder {
     }
 
     @Override
-    public Path getFile(final Path root, final ProjectMetadata metadata, final DomainMetadata domainMetadata) throws IOException {
-        Path _root = Paths.get(root.toAbsolutePath() + ROOT);
-
-        return super.getFile(_root, metadata, domainMetadata);
+    public Path getFile(final Path root, final ProjectMetadata metadata, final DomainMetadata domainMetadata)
+            throws IOException {
+        return this.getFile(root, metadata);
     }
 }

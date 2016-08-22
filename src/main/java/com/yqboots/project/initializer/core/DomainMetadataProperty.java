@@ -12,8 +12,6 @@ public class DomainMetadataProperty implements Serializable {
 
     private String fieldType = "String";
 
-    private int length = 255;
-
     private boolean nullable = true;
 
     private boolean unique = false;
@@ -42,14 +40,6 @@ public class DomainMetadataProperty implements Serializable {
 
     public void setFieldType(final String fieldType) {
         this.fieldType = fieldType;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(final int length) {
-        this.length = length;
     }
 
     public boolean isNullable() {

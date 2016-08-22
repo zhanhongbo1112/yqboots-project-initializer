@@ -20,7 +20,7 @@ public abstract class AbstractSheetBuilder implements SheetBuilder {
     @Override
     public boolean supports(final Sheet sheet) {
         final String name = StringUtils.trim(sheet.getSheetName());
-        return StringUtils.equalsIgnoreCase(name, this.sheetName);
+        return StringUtils.startsWithIgnoreCase(name, this.sheetName);
     }
 
     @Override

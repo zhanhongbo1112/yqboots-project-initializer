@@ -24,7 +24,8 @@ import java.util.Properties;
  * Created by Administrator on 2016-08-18.
  */
 @Configuration
-@EnableConfigurationProperties({MenuItemProperties.class, DataDictProperties.class, MessageProperties.class, SystemProperties.class})
+@EnableConfigurationProperties({MenuItemProperties.class, DataDictProperties.class, MessageProperties.class,
+        DomainProperties.class, SystemProperties.class})
 public class ProjectFileBuilderConfiguration {
     @Autowired
     private MenuItemProperties menuItemProperties;

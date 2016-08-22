@@ -3,8 +3,11 @@ package com.yqboots.project.initializer.core.builder.excel;
 import com.yqboots.project.initializer.core.DomainMetadata;
 import com.yqboots.project.initializer.core.ProjectMetadata;
 import com.yqboots.project.initializer.core.builder.FileTemplateBuilder;
+import com.yqboots.project.initializer.core.builder.JavaFileBuilder;
+import com.yqboots.project.initializer.core.builder.ResourcesFileBuilder;
 import com.yqboots.project.initializer.core.builder.excel.factory.DomainMetadataFactory;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.velocity.Template;
@@ -37,11 +40,16 @@ public class DomainSheetBuilder extends AbstractSheetBuilder {
     @Override
     protected void formatChecking(final Sheet sheet) {
         // get the title row
-        Row row = sheet.getRow(1);
-        Assert.isTrue(StringUtils.equalsIgnoreCase(row.getCell(0).getStringCellValue(), "Module"),
+        Row mergedRow = sheet.getRow(0);
+        Cell mergedCell = mergedRow.getCell(0);
+        Assert.isTrue(StringUtils.equalsIgnoreCase(mergedCell.getStringCellValue(), "Module"),
                 "Column 'Module' is required");
-        Assert.isTrue(StringUtils.equalsIgnoreCase(row.getCell(1).getStringCellValue(), "Domain Name"),
+
+        mergedCell = mergedRow.getCell(1);
+        Assert.isTrue(StringUtils.equalsIgnoreCase(mergedCell.getStringCellValue(), "Domain Name"),
                 "Column 'Domain Name' is required");
+
+        Row row = sheet.getRow(1);
         Assert.isTrue(StringUtils.equalsIgnoreCase(row.getCell(2).getStringCellValue(), "DB Column"),
                 "Column 'DB Column' is required");
         Assert.isTrue(StringUtils.equalsIgnoreCase(row.getCell(3).getStringCellValue(), "Class Field"),
@@ -78,14 +86,21 @@ public class DomainSheetBuilder extends AbstractSheetBuilder {
         }
     }
 
-    private List<FileTemplateBuilder> getBuilders(DomainMetadata domainMetadata) {
-        // TODO: generate builders based on domain metadata
-        List<FileTemplateBuilder> results = new ArrayList<>();
+    private List<FileTemplateBuilder> getBuilders(DomainMetadata metadata) {
+        final List<FileTemplateBuilder> results = new ArrayList<>();
+
+        results.add(new JavaFileBuilder("Domain.java.vm", DomainMetadataFactory.createDomainPath(metadata)));
+        results.add(new JavaFileBuilder("Repository.java.vm", DomainMetadataFactory.createRepositoryPath(metadata)));
+        results.add(new JavaFileBuilder("Controller.java.vm", DomainMetadataFactory.createControllerPath(metadata)));
+        results.add(new ResourcesFileBuilder("index.js.vm", DomainMetadataFactory.createDomainJsPath(metadata, "index")));
+        results.add(new ResourcesFileBuilder("form.js.vm", DomainMetadataFactory.createDomainJsPath(metadata, "form")));
+        results.add(new ResourcesFileBuilder("index.html.vm", DomainMetadataFactory.createDomainHtmlPath(metadata, "index")));
+        results.add(new ResourcesFileBuilder("form.html.vm", DomainMetadataFactory.createDomainHtmlPath(metadata, "form")));
 
         return results;
     }
 
-    public VelocityEngine getVelocityEngine() {
+    protected VelocityEngine getVelocityEngine() {
         return velocityEngine;
     }
 }

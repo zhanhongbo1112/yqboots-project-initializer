@@ -47,6 +47,26 @@ public class DomainMetadataFactory {
         return results;
     }
 
+    public static String createDomainPath(DomainMetadata metadata) {
+        return "/core/" + metadata.getName() + ".java";
+    }
+
+    public static String createRepositoryPath(DomainMetadata metadata) {
+        return "/core/repository/" + metadata.getName() + "Repository.java";
+    }
+
+    public static String createControllerPath(DomainMetadata metadata) {
+        return "/web/controller/" + metadata.getName() + "Controller.java";
+    }
+
+    public static String createDomainJsPath(DomainMetadata metadata, String name) {
+        return "/META-INF/resources/dojo/app/" + metadata.getModule() + "/" + metadata.getName() + "/" + name + ".js";
+    }
+
+    public static String createDomainHtmlPath(DomainMetadata metadata, String name) {
+        return "/templates/" + metadata.getModule() + "/" + metadata.getName() + "/" + name + ".html";
+    }
+
     private static List<Integer> getStartingPoints(final Sheet sheet) {
         List<Integer> results = new ArrayList<>();
         for (Row row : sheet) {
@@ -84,18 +104,14 @@ public class DomainMetadataFactory {
             result.setFieldType(cell.getStringCellValue());
         }
         cell = row.getCell(5);
-        if (cell != null && cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-            result.setLength(Double.valueOf(cell.getNumericCellValue()).intValue());
-        }
-        cell = row.getCell(6);
         if (cell != null && cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
             result.setNullable(cell.getBooleanCellValue());
         }
-        cell = row.getCell(7);
+        cell = row.getCell(6);
         if (cell != null && cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
             result.setUnique(cell.getBooleanCellValue());
         }
-        cell = row.getCell(8);
+        cell = row.getCell(7);
         if (cell != null) {
             switch (cell.getCellType()) {
                 case Cell.CELL_TYPE_NUMERIC:

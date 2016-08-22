@@ -1,0 +1,13 @@
+#set($groupId = $metadata.getGroupId() + "." + $domain.getModule() + ".core.repository")
+package $groupId;
+
+#set($domainPackage = $metadata.getGroupId() + "." + $domain.getModule() + ".core." + $domain.getName())
+#set($repositoryName = $domain.getName() + "Repository")
+#set($domainName = $domain.getName())
+import $domainPackage;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+
+public interface $repositoryName extends JpaRepository<$domainName, Long>, JpaSpecificationExecutor<$domainName> {
+
+}

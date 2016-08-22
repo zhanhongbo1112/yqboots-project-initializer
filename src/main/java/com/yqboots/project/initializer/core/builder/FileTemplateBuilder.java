@@ -43,7 +43,8 @@ public class FileTemplateBuilder implements FileBuilder, TemplateBuilder {
     }
 
     @Override
-    public Path getFile(final Path root, final ProjectMetadata metadata, final DomainMetadata domainMetadata) throws IOException {
+    public Path getFile(final Path root, final ProjectMetadata metadata, final DomainMetadata domainMetadata)
+            throws IOException {
         Path result = Paths.get(root + File.separator + domainMetadata.getModule() + getPath());
         if (Files.exists(result)) {
             result.toFile().createNewFile();
@@ -56,7 +57,8 @@ public class FileTemplateBuilder implements FileBuilder, TemplateBuilder {
     }
 
     @Override
-    public List<Path> getFiles(final Path root, final ProjectMetadata metadata, final InputStream inputStream) throws IOException {
+    public List<Path> getFiles(final Path root, final ProjectMetadata metadata, final InputStream inputStream)
+            throws IOException {
         throw new UnsupportedOperationException();
     }
 

@@ -28,11 +28,13 @@ public class JavaFileBuilder extends FileTemplateBuilder {
     }
 
     @Override
-    public Path getFile(final Path root, final ProjectMetadata metadata, final DomainMetadata domainMetadata) throws IOException {
+    public Path getFile(final Path root, final ProjectMetadata metadata, final DomainMetadata domainMetadata)
+            throws IOException {
         // dynamic calculate the java file path based on groupId
         final String groupPath = metadata.getGroupPath();
-        Path _root = Paths.get(root.toAbsolutePath() + ROOT + File.separator + groupPath + File.separator + domainMetadata.getModule());
+        Path _root = Paths.get(root.toAbsolutePath() + ROOT + File.separator + groupPath + File.separator
+                + domainMetadata.getModule());
 
-        return super.getFile(_root, metadata, domainMetadata);
+        return super.getFile(_root, metadata);
     }
 }
