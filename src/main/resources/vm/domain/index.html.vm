@@ -1,0 +1,93 @@
+#set($domainName = $domain.getName())
+#set($baseViewUrl = $domain.getModule() + "/" + $domainName)
+#set($baseUrl = "/" + $baseViewUrl)
+#set($colspan = $domain.getProperties().size() + 1)
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:yq="http://www.yqboots.com" xmlns="http://www.w3.org/1999/xhtml" layout:decorator="layouts/layout">
+<head>
+  <title th:text="Domain Management">Domain Management</title>
+  <link rel="stylesheet" href="../../../META-INF/resources/theme/application.css" th:remove="all"/>
+  <link rel="stylesheet" href="../../../META-INF/resources/theme/css/theme-colors/green.css" th:remove="all"/>
+</head>
+<body>
+<div layout:fragment="breadcrumbs">
+  <yq:breadcrumbs menu="$domainName"/>
+</div>
+<div layout:fragment="content" class="content content-sm height-500">
+  <div class="container table-responsive">
+    <div class="row">
+      <div class="col-md-4">
+        <form action="#" th:action="@{$baseUrl}" th:object="${searchForm}" method="post">
+          <div class="input-group">
+            <input type="text" th:field="*{criterion}" class="form-control" placeholder="Search"
+                   th:placeholder="#{T0007}"/>
+            <span class="input-group-btn">
+                <button class="btn-u" type="submit" th:text="#{T0007}">Search</button>
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-8">
+        <div class="btn-group pull-right">
+          <button type="button" class="btn-u dropdown-toggle" data-toggle="dropdown">
+            <span th:text="#{T0011}">Action</span> <i class="fa fa-angle-down"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="#" title="New" th:title="#{T0010}" th:href="@{$baseUrl(action='new')}">
+                <i class="glyphicon glyphicon-plus"></i> <span th:text="#{T0010}">New</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="divider divider-blank"></div>
+    <div class="panel margin-bottom-40">
+      <div class="panel-heading">
+        <h3 class="panel-title" th:text="Domain List">Domain List</h3>
+      </div>
+      <table class="table table-hover">
+        <thead>
+        <tr>
+#foreach($item in $domain.getProperties())
+          <th th:text="$item.getClassField()">$item.getClassField()</th>
+#end
+          <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${page}">
+#foreach($item in $domain.getProperties())
+#set($text = "$" + "{item." + $item.getClassField() + "}")
+          <td th:text="$text">$item.getClassField()</td>
+#end
+          <td>
+            <a href="#" th:href="@{$baseUrl(id=${item.id},action='update')}" title="Update">
+              <i class="glyphicon glyphicon-pencil"></i>
+            </a>
+            <a href="#" th:href="@{$baseUrl(id=${item.id},action='delete')}" title="Delete">
+              <i class="glyphicon glyphicon-remove-sign"></i>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <th colspan="$colspan">
+            <div yq:pageSummary="${page}"></div>
+          </th>
+        </tr>
+        </tfoot>
+      </table>
+      <div class="panel-footer text-center">
+        <yq:pagination page="${page}" th:href="@{$baseUrl}"/>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../../../META-INF/resources/dojo/jquery.js" th:remove="all"></script>
+<script src="../../../META-INF/resources/dojo/bootstrap.js" th:remove="all"></script>
+</body>
+</html>

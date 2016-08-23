@@ -73,8 +73,9 @@ public class MenuItemSheetBuilder extends AbstractSheetBuilder {
         }
 
         Path file = Paths.get(targetPath + File.separator + properties.getExportName() + FileType.DOT_XML);
-        FileWriter writer = new FileWriter(file.toFile());
-        marshaller.marshal(new MenuItems(items), new StreamResult(writer));
+        try (FileWriter writer = new FileWriter(file.toFile())) {
+            marshaller.marshal(new MenuItems(items), new StreamResult(writer));
+        }
     }
 
     private MenuItem getMenuItem(final Row row) {

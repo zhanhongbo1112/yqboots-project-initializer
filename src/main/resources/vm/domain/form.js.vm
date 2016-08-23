@@ -1,0 +1,7 @@
+define([], function () {
+    return {
+        startup: function () {
+            console.log("form page start......")
+        }
+    };
+});

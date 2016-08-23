@@ -72,8 +72,9 @@ public class DataDictSheetBuilder extends AbstractSheetBuilder {
         }
 
         Path file = Paths.get(targetPath + File.separator + properties.getExportName() + FileType.DOT_XML);
-        FileWriter writer = new FileWriter(file.toFile());
-        marshaller.marshal(new DataDicts(items), new StreamResult(writer));
+        try (FileWriter writer = new FileWriter(file.toFile())) {
+            marshaller.marshal(new DataDicts(items), new StreamResult(writer));
+        }
     }
 
     private DataDict getDataDicts(final Row row) {

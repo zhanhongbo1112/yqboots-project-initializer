@@ -8,7 +8,6 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
@@ -41,7 +40,7 @@ public class $domainName extends AbstractPersistable<Long> {
         return $localField;
     }
 
-    public void $setter(final $item.getFieldType() $item.getClassField() {
+    public void $setter(final $item.getFieldType() $item.getClassField()) {
         $localField = $item.getClassField();
     }
 

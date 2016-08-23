@@ -1,30 +1,23 @@
 #set($basePackage = $metadata.getGroupId() + "." + $domain.getModule())
 #set($groupId = $basePackage + ".web.controller")
 #set($domainName = $domain.getName())
+#set($controllerName = $domain.getName() + "Controller")
 #set($repositoryName = $domainName + "Repository")
-#set($searchFormName = $domainName + "SearchForm")
-#set($specificationName = $domainName + "Specifications")
 #set($repositoryBeanName = $StringUtils.uncapitalize($repositoryName))
 #set($domainClass = $basePackage + ".core." + $domainName)
 #set($repositoryClass = $basePackage + ".core.repository." + $repositoryName)
-#set($searchFormClass = $basePackage + ".web.form." + $searchFormName)
-#set($specificationClass = $basePackage + ".web.form." + $specificationName)
 #set($baseViewUrl = $domain.getModule() + "/" + $domainName)
 #set($baseUrl = "/" + $baseViewUrl)
-#set($methodSpecification = $specificationName + ".search(searchForm)")
-#set($methodSearch = $repositoryBeanName + ".findAll(" + $methodSpecification + ", pageable)")
+#set($methodSearch = $repositoryBeanName + ".findAll(pageable)")
 #set($methodAdd = $repositoryBeanName + ".save(domain)")
 #set($methodDelete = $repositoryBeanName + ".delete(id)")
 #set($methodFindOne = $repositoryBeanName + ".findOne(id)")
-#set($searchFormClassName = $searchFormName + ".class")
 package $groupId;
 
 import $domainClass;
 import $repositoryClass;
-import $searchFormClass;
-import $specificationClass;
 import com.yqboots.project.web.WebKeys;
-import org.apache.commons.lang3.StringUtils;
+import com.yqboots.project.web.form.SearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -37,8 +30,8 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "$baseUrl")
-@SessionAttributes(names = {WebKeys.SEARCH_FORM}, types = {$searchFormClassName})
-public class MenuItemController {
+@SessionAttributes(names = {WebKeys.SEARCH_FORM})
+public class $controllerName {
     private static final String REDIRECT_VIEW_PATH = "redirect:$baseUrl";
     private static final String VIEW_HOME = "$baseViewUrl/index";
     private static final String VIEW_FORM = "$baseViewUrl/form";
@@ -47,12 +40,12 @@ public class MenuItemController {
     private $repositoryName $repositoryBeanName;
 
     @ModelAttribute(WebKeys.SEARCH_FORM)
-    protected $searchFormName searchForm() {
-        return new $searchFormName();
+    protected SearchForm<String> searchForm() {
+        return new SearchForm<String>();
     }
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    public String list(@ModelAttribute(WebKeys.SEARCH_FORM) final $searchFormName searchForm,
+    public String list(@ModelAttribute(WebKeys.SEARCH_FORM) final SearchForm<String> searchForm,
                        @PageableDefault final Pageable pageable,
                        final ModelMap model) {
         model.addAttribute(WebKeys.PAGE, $methodSearch);
@@ -61,7 +54,7 @@ public class MenuItemController {
 
     @RequestMapping(params = {WebKeys.ACTION_NEW}, method = RequestMethod.GET)
     public String preAdd(final ModelMap model) {
-        model.addAttribute(WebKeys.MODEL, new MenuItem());
+        model.addAttribute(WebKeys.MODEL, new $domainName());
         return VIEW_FORM;
     }
 
