@@ -1,6 +1,6 @@
 package com.yqboots.project.initializer.core.builder.excel;
 
-import com.yqboots.fss.core.support.FileType;
+import com.yqboots.project.fss.core.support.FileType;
 import com.yqboots.project.initializer.core.ProjectMetadata;
 import com.yqboots.project.menu.core.MenuItem;
 import com.yqboots.project.menu.core.MenuItems;

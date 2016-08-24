@@ -1,6 +1,6 @@
 package com.yqboots.project.initializer.web.controller;
 
-import com.yqboots.fss.web.util.FssWebUtils;
+import com.yqboots.project.fss.web.util.FssWebUtils;
 import com.yqboots.project.initializer.web.form.ProjectInitializerForm;
 import com.yqboots.project.initializer.core.ProjectInitializer;
 import com.yqboots.project.web.WebKeys;

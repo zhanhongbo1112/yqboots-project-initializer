@@ -1,6 +1,6 @@
 package com.yqboots.project.initializer.core.builder.excel;
 
-import com.yqboots.fss.core.support.FileType;
+import com.yqboots.project.fss.core.support.FileType;
 import com.yqboots.project.initializer.core.ProjectMetadata;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;

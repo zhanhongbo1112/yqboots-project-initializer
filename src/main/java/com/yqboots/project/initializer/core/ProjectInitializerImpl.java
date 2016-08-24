@@ -17,7 +17,7 @@
  */
 package com.yqboots.project.initializer.core;
 
-import com.yqboots.fss.util.ZipUtils;
+import com.yqboots.project.fss.util.ZipUtils;
 import com.yqboots.project.initializer.autoconfigure.ProjectInitializerProperties;
 import com.yqboots.project.initializer.core.builder.FileBuilder;
 import com.yqboots.project.initializer.core.builder.excel.ProjectFileBuilder;

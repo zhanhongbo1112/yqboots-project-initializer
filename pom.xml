@@ -18,15 +18,14 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <yqboots.fss.version>1.0.0</yqboots.fss.version>
         <yqboots.project.version>1.0.0</yqboots.project.version>
         <poi.version>3.14</poi.version>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.yqboots</groupId>
-            <artifactId>yqboots-fss</artifactId>
-            <version>${yqboots.fss.version}</version>
+            <groupId>com.yqboots.project</groupId>
+            <artifactId>project-fss</artifactId>
+            <version>${yqboots.project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.yqboots.project</groupId>
