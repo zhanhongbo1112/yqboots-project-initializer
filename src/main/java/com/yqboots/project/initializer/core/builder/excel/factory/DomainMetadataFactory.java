@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Copyright 2015-2016 the original author or authors.
+ *  *
+ *  * Licensed under the Apache License, Version 2.0 (the "License");
+ *  * you may not use this file except in compliance with the License.
+ *  * You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  * Unless required by applicable law or agreed to in writing, software
+ *  * distributed under the License is distributed on an "AS IS" BASIS,
+ *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  * See the License for the specific language governing permissions and
+ *  * limitations under the License.
+ *
+ */
 package com.yqboots.project.initializer.core.builder.excel.factory;
 
 import com.yqboots.project.initializer.core.DomainMetadata;
@@ -10,15 +27,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016-08-18.
+ * The factory, which creates domain metadata based on the content in the sheet of an Excel.
+ *
+ * @author Eric H B Zhan
+ * @since 1.0.0
  */
 public class DomainMetadataFactory {
+    /**
+     * Creates domain metadatas.
+     *
+     * @param sheet the excel sheet
+     * @return list of DomainMetadata
+     */
     public static List<DomainMetadata> create(final Sheet sheet) {
-        List<DomainMetadata> results = new ArrayList<>();
+        final List<DomainMetadata> results = new ArrayList<>();
 
-        List<Integer> startingPoints = getStartingPoints(sheet);
+        final List<Integer> startingPoints = getStartingPoints(sheet);
 
-        int total = startingPoints.size();
+        final int total = startingPoints.size();
         // no need to handle the last point
         for (int i = 0; i < total - 1; i++) {
             int point = startingPoints.get(i);
@@ -47,26 +73,64 @@ public class DomainMetadataFactory {
         return results;
     }
 
+    /**
+     * Creates relative java file path of a domain.
+     *
+     * @param metadata the domain metadata
+     * @return the relative file path
+     */
     public static String createDomainPath(DomainMetadata metadata) {
         return "/core/" + metadata.getName() + ".java";
     }
 
+    /**
+     * Creates relative java repository file path of a domain.
+     *
+     * @param metadata the domain metadata
+     * @return the relative file path
+     */
     public static String createRepositoryPath(DomainMetadata metadata) {
         return "/core/repository/" + metadata.getName() + "Repository.java";
     }
 
+    /**
+     * Creates relative java controller file path of a domain.
+     *
+     * @param metadata the domain metadata
+     * @return the relative file path
+     */
     public static String createControllerPath(DomainMetadata metadata) {
         return "/web/controller/" + metadata.getName() + "Controller.java";
     }
 
+    /**
+     * Creates relative javascript file path of a domain.
+     *
+     * @param metadata the domain metadata
+     * @param name     the javascript file name (not contain the suffix)
+     * @return the relative file path
+     */
     public static String createDomainJsPath(DomainMetadata metadata, String name) {
         return "/META-INF/resources/dojo/app/" + metadata.getModule() + "/" + metadata.getName() + "/" + name + ".js";
     }
 
+    /**
+     * Creates relative html file path of a domain.
+     *
+     * @param metadata the domain metadata
+     * @param name     the javascript file name (not contain the suffix)
+     * @return the relative file path
+     */
     public static String createDomainHtmlPath(DomainMetadata metadata, String name) {
         return "/templates/" + metadata.getModule() + "/" + metadata.getName() + "/" + name + ".html";
     }
 
+    /**
+     * Gets the starting points of each domain.
+     *
+     * @param sheet the Excel sheet
+     * @return all starting points
+     */
     private static List<Integer> getStartingPoints(final Sheet sheet) {
         List<Integer> results = new ArrayList<>();
         for (Row row : sheet) {
@@ -88,8 +152,14 @@ public class DomainMetadataFactory {
         return results;
     }
 
+    /**
+     * Gets the properties.
+     *
+     * @param row the row of one sheet in the Excel
+     * @return one DomainMetadataProperty
+     */
     private static DomainMetadataProperty getMetadataProperty(final Row row) {
-        DomainMetadataProperty result = new DomainMetadataProperty();
+        final DomainMetadataProperty result = new DomainMetadataProperty();
 
         Cell cell = row.getCell(2);
         if (cell != null) {

@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Copyright 2015-2016 the original author or authors.
+ *  *
+ *  * Licensed under the Apache License, Version 2.0 (the "License");
+ *  * you may not use this file except in compliance with the License.
+ *  * You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  * Unless required by applicable law or agreed to in writing, software
+ *  * distributed under the License is distributed on an "AS IS" BASIS,
+ *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  * See the License for the specific language governing permissions and
+ *  * limitations under the License.
+ *
+ */
 package com.yqboots.project.initializer.core.builder.excel;
 
 import com.yqboots.project.dict.core.DataDict;
@@ -22,13 +39,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016-08-11.
+ * It builds the Excel sheet to retrieve DataDict.
+ *
+ * @author Eric H B Zhan
+ * @since 1.0.0
  */
 public class DataDictSheetBuilder extends AbstractSheetBuilder {
     private final Marshaller marshaller;
 
     private final DataDictProperties properties;
 
+    /**
+     * Constructs the DataDictSheetBuilder.
+     *
+     * @param marshaller marshal the generated MenuItem to XML
+     * @param properties properties for MenuItem
+     */
     public DataDictSheetBuilder(final Marshaller marshaller, DataDictProperties properties) {
         super(properties.getSheetName());
         this.marshaller = marshaller;
@@ -38,11 +64,11 @@ public class DataDictSheetBuilder extends AbstractSheetBuilder {
     @Override
     protected void formatChecking(final Sheet sheet) {
         // get the title row
-        Row row = sheet.getRow(0);
+        final Row row = sheet.getRow(0);
 
-        Cell nameCell = row.getCell(0);
-        Cell textCell = row.getCell(1);
-        Cell valueCell = row.getCell(2);
+        final Cell nameCell = row.getCell(0);
+        final Cell textCell = row.getCell(1);
+        final Cell valueCell = row.getCell(2);
 
         Assert.isTrue(StringUtils.equalsIgnoreCase(nameCell.getStringCellValue(), "name"),
                 "Column 'name' is required");
@@ -66,18 +92,18 @@ public class DataDictSheetBuilder extends AbstractSheetBuilder {
         }
 
         // generate an XML for the application importing into Database
-        Path targetPath = Paths.get(root + File.separator + properties.getExportRelativePath());
+        final Path targetPath = Paths.get(root + File.separator + properties.getExportRelativePath());
         if (!Files.exists(targetPath)) {
             Files.createDirectories(targetPath);
         }
 
-        Path file = Paths.get(targetPath + File.separator + properties.getExportName() + FileType.DOT_XML);
+        final Path file = Paths.get(targetPath + File.separator + properties.getExportName() + FileType.DOT_XML);
         try (FileWriter writer = new FileWriter(file.toFile())) {
             marshaller.marshal(new DataDicts(items), new StreamResult(writer));
         }
     }
 
-    private DataDict getDataDicts(final Row row) {
+    private static DataDict getDataDicts(final Row row) {
         DataDict result = new DataDict();
         result.setName(row.getCell(0).getStringCellValue());
         result.setText(row.getCell(1).getStringCellValue());

@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Copyright 2015-2016 the original author or authors.
+ *  *
+ *  * Licensed under the Apache License, Version 2.0 (the "License");
+ *  * you may not use this file except in compliance with the License.
+ *  * You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  * Unless required by applicable law or agreed to in writing, software
+ *  * distributed under the License is distributed on an "AS IS" BASIS,
+ *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  * See the License for the specific language governing permissions and
+ *  * limitations under the License.
+ *
+ */
 package com.yqboots.project.initializer.core.builder.excel;
 
 import com.yqboots.project.initializer.core.ProjectMetadata;
@@ -14,13 +31,27 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Created by Administrator on 2016-08-18.
+ * It builds the sheet for system properties..
+ *
+ * @author Eric H B Zhan
+ * @since 1.0.0
  */
 public class SystemPropertiesSheetBuilder extends AbstractSheetBuilder {
+    /**
+     * The file name for system properties. defaults to "application.properties"
+     */
     private static final String FILE_NAME = "application.properties";
 
+    /**
+     * The system properties.
+     */
     private final SystemProperties properties;
 
+    /**
+     * Constructs the SystemPropertiesSheetBuilder.
+     *
+     * @param properties the system properties
+     */
     public SystemPropertiesSheetBuilder(final SystemProperties properties) {
         super(properties.getSheetName());
         this.properties = properties;
@@ -29,33 +60,36 @@ public class SystemPropertiesSheetBuilder extends AbstractSheetBuilder {
     @Override
     protected void formatChecking(final Sheet sheet) {
         // get the title row
-        Row row = sheet.getRow(0);
-        Cell keyCell = row.getCell(0);
+        final Row row = sheet.getRow(0);
+        final Cell keyCell = row.getCell(0);
         Assert.isTrue(StringUtils.equalsIgnoreCase(keyCell.getStringCellValue(), "name"),
                 "Column 'name' is required");
-        Cell valueCell = row.getCell(1);
+        final Cell valueCell = row.getCell(1);
         Assert.isTrue(StringUtils.equalsIgnoreCase(valueCell.getStringCellValue(), "value"),
                 "Column 'value' is required");
     }
 
     @Override
     protected void doBuild(final Path root, final ProjectMetadata metadata, final Sheet sheet) throws IOException {
-        Path path = Paths.get(root + File.separator + properties.getExportRelativePath());
-        try (FileWriter writer = new FileWriter(Paths.get(path + File.separator + FILE_NAME).toFile())) {
-            for (Row row : sheet) {
+        final Path path = Paths.get(root + File.separator + properties.getExportRelativePath());
+        try (final FileWriter writer = new FileWriter(Paths.get(path + File.separator + FILE_NAME).toFile())) {
+            for (final Row row : sheet) {
                 // ignore the first row
                 if (row.getRowNum() < 1) {
                     continue;
                 }
 
                 // set comment
-                String description = row.getCell(2).getStringCellValue();
-                writer.write("#" + description + "\r\n");
+                final Cell cell = row.getCell(2);
+                if (cell != null) {
+                    writer.write("#" + cell.getStringCellValue() + "\r\n");
+                }
 
-                String key = row.getCell(0).getStringCellValue();
-                String value = row.getCell(1).getStringCellValue();
-
-                writer.write(key + "=" + value + "\r\n");
+                final Cell cell0 = row.getCell(0);
+                final Cell cell1 = row.getCell(1);
+                if (cell != null && cell1 != null) {
+                    writer.write(cell0.getStringCellValue() + "=" + cell1.getStringCellValue() + "\r\n");
+                }
             }
         }
     }

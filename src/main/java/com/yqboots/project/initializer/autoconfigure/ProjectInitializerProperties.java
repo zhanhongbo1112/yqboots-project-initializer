@@ -24,7 +24,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2016-05-28.
+ * The configuration properties for project initializer.
+ *
+ * @author Eric H B Zhan
+ * @since 1.0.0
  */
 @ConfigurationProperties(prefix = "yqboots.project.initializer")
 public class ProjectInitializerProperties {

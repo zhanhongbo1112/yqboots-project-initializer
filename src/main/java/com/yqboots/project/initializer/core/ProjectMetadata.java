@@ -24,7 +24,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 import java.io.Serializable;
 
 /**
- * Created by Administrator on 2016-05-28.
+ * The project metadata for project initializer.
+ *
+ * @author Eric H B Zhan
+ * @since 1.0.0
  */
 @SuppressWarnings("serial")
 public class ProjectMetadata implements Serializable {
@@ -75,6 +78,11 @@ public class ProjectMetadata implements Serializable {
         this.artifactId = artifactId;
     }
 
+    /**
+     * Gets the path by replacing the '.' to '/', for path lookup.
+     *
+     * @return the group path
+     */
     public String getGroupPath() {
         return StringUtils.replace(getGroupId(), ".", "/");
     }

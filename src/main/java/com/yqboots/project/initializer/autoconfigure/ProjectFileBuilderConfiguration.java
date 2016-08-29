@@ -21,27 +21,15 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Created by Administrator on 2016-08-18.
+ * The configurations for project file builders.
+ *
+ * @author Eric H B Zhan
+ * @since 1.0.0
  */
 @Configuration
 @EnableConfigurationProperties({MenuItemProperties.class, DataDictProperties.class, MessageProperties.class,
         DomainProperties.class, SystemProperties.class})
 public class ProjectFileBuilderConfiguration {
-    @Autowired
-    private MenuItemProperties menuItemProperties;
-
-    @Autowired
-    private DataDictProperties dataDictProperties;
-
-    @Autowired
-    private MessageProperties messageProperties;
-
-    @Autowired
-    private SystemProperties systemProperties;
-
-    @Autowired
-    private DomainProperties domainProperties;
-
     @Bean
     @ConditionalOnMissingBean(ProjectFileBuilder.class)
     public ProjectFileBuilder projectFileBuilder() throws IOException {
@@ -55,6 +43,9 @@ public class ProjectFileBuilderConfiguration {
         return new ProjectFileBuilder(builders);
     }
 
+    @Autowired
+    private MenuItemProperties menuItemProperties;
+
     @Bean
     @ConditionalOnMissingBean(MenuItemSheetBuilder.class)
     public MenuItemSheetBuilder menuSheetBuilder() {
@@ -62,6 +53,9 @@ public class ProjectFileBuilderConfiguration {
         marshaller.setClassesToBeBound(MenuItems.class, MenuItem.class);
         return new MenuItemSheetBuilder(marshaller, menuItemProperties);
     }
+
+    @Autowired
+    private DataDictProperties dataDictProperties;
 
     @Bean
     @ConditionalOnMissingBean(DataDictSheetBuilder.class)
@@ -71,17 +65,26 @@ public class ProjectFileBuilderConfiguration {
         return new DataDictSheetBuilder(marshaller, dataDictProperties);
     }
 
+    @Autowired
+    private MessageProperties messageProperties;
+
     @Bean
     @ConditionalOnMissingBean(MessageSheetBuilder.class)
     public MessageSheetBuilder messageSheetBuilder() {
         return new MessageSheetBuilder(messageProperties);
     }
 
+    @Autowired
+    private SystemProperties systemProperties;
+
     @Bean
     @ConditionalOnMissingBean(SystemPropertiesSheetBuilder.class)
     public SystemPropertiesSheetBuilder systemPropertiesSheetBuilder() {
         return new SystemPropertiesSheetBuilder(systemProperties);
     }
+
+    @Autowired
+    private DomainProperties domainProperties;
 
     @Bean
     @ConditionalOnMissingBean(DomainSheetBuilder.class)

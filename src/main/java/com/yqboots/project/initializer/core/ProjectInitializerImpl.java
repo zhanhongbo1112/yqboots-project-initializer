@@ -38,17 +38,36 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016-05-28.
+ * The project initializer implementation.
+ *
+ * @author Eric H B Zhan
+ * @since 1.0.0
  */
 public class ProjectInitializerImpl implements ProjectInitializer {
     private static final Logger LOG = LoggerFactory.getLogger(ProjectInitializerImpl.class);
 
+    /**
+     * The velocity engine.
+     */
     private final VelocityEngine velocityEngine;
 
+    /**
+     * List of file builders.
+     */
     private final List<FileBuilder> fileBuilders;
 
+    /**
+     * The properties.
+     */
     private final ProjectInitializerProperties properties;
 
+    /**
+     * Constructs the ProjectInitializerImpl.
+     *
+     * @param velocityEngine The velocity engine.
+     * @param fileBuilders   List of file builders.
+     * @param properties     The properties.
+     */
     public ProjectInitializerImpl(final VelocityEngine velocityEngine, final List<FileBuilder> fileBuilders,
                                   final ProjectInitializerProperties properties) {
         this.velocityEngine = velocityEngine;

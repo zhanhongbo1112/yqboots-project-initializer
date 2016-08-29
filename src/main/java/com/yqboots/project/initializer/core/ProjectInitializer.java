@@ -24,10 +24,30 @@ import java.io.InputStream;
 import java.nio.file.Path;
 
 /**
- * Created by Administrator on 2016-05-28.
+ * The project initializer, which generates an enterprise Java project with metadata input.
+ *
+ * @author Eric H B Zhan
+ * @since 1.0.0
  */
 public interface ProjectInitializer {
+    /**
+     * Generates project files by its metadata and theme.
+     *
+     * @param metadata the project metadata
+     * @param theme    the theme
+     * @return the path for all generated files
+     * @throws IOException
+     */
     Path startup(ProjectMetadata metadata, Theme theme) throws IOException;
 
+    /**
+     * Generates project files by its metadata and theme.
+     *
+     * @param metadata the project metadata
+     * @param theme    the theme
+     * @param file     the input stream which contains domain metadata
+     * @return the path for all generated files
+     * @throws IOException
+     */
     Path startup(ProjectMetadata metadata, Theme theme, InputStream file) throws IOException;
 }

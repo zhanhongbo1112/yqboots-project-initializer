@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Copyright 2015-2016 the original author or authors.
+ *  *
+ *  * Licensed under the Apache License, Version 2.0 (the "License");
+ *  * you may not use this file except in compliance with the License.
+ *  * You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  * Unless required by applicable law or agreed to in writing, software
+ *  * distributed under the License is distributed on an "AS IS" BASIS,
+ *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  * See the License for the specific language governing permissions and
+ *  * limitations under the License.
+ *
+ */
 package com.yqboots.project.initializer.core.builder.excel;
 
 import com.yqboots.project.fss.core.support.FileType;
@@ -20,13 +37,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016-08-11.
+ * It builds the Excel sheet to retrieve MenuItem.
+ *
+ * @author Eric H B Zhan
+ * @since 1.0.0
  */
 public class MenuItemSheetBuilder extends AbstractSheetBuilder {
     private final Marshaller marshaller;
 
     private final MenuItemProperties properties;
 
+    /**
+     * Constructs the MenuItemSheetBuilder.
+     *
+     * @param marshaller marshal the generated MenuItem to XML
+     * @param properties properties for MenuItem
+     */
     public MenuItemSheetBuilder(final Marshaller marshaller, MenuItemProperties properties) {
         super(properties.getSheetName());
         this.marshaller = marshaller;
@@ -78,6 +104,12 @@ public class MenuItemSheetBuilder extends AbstractSheetBuilder {
         }
     }
 
+    /**
+     * Gets MenuItem from row.
+     *
+     * @param row row of a sheet on Excel
+     * @return MenuItem
+     */
     private MenuItem getMenuItem(final Row row) {
         MenuItem result = new MenuItem();
         result.setName(row.getCell(0).getStringCellValue());
