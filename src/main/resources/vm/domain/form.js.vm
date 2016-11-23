@@ -1,7 +1,12 @@
-define([], function () {
+define(['dojo/_base/lang'], function (lang) {
     return {
         startup: function () {
-            console.log("form page start......")
+            $('#cancel').click(lang.hitch(this, '_onCancel'));
+        },
+
+        _onCancel: function (e) {
+            e.preventDefault();
+            window.history.back();
         }
     };
 });

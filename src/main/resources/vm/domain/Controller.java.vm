@@ -16,8 +16,8 @@ package $groupId;
 
 import $domainClass;
 import $repositoryClass;
-import com.yqboots.project.web.WebKeys;
-import com.yqboots.project.web.form.SearchForm;
+import com.yqboots.web.support.WebKeys;
+import com.yqboots.web.form.SearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

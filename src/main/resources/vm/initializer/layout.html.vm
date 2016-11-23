@@ -9,20 +9,18 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE" th:text="#{app.name}">YuQi</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE" th:text="#{T0000}">YuQi</title>
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta content="YuQi Projects" name="description"/>
   <meta content="Eric H B Zhan" name="author"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
   <!-- Favicon -->
-  <link rel="shortcut icon" href="../../META-INF/resources/favicon.ico" th:href="@{/favicon.ico}"/>
-  <link rel="stylesheet" href="../../META-INF/resources/theme/application.css" th:href="@{/theme/application.css}"/>
-
-  <link rel="stylesheet" href="../../META-INF/resources/theme/css/theme-colors/$themeColor"
-        th:href="@{/theme/css/theme-colors/$themeColor}"/>
+  <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+  <link rel="stylesheet" th:href="@{/theme/application.css}"/>
+  <link rel="stylesheet" th:href="@{/theme/css/theme-colors/$themeColor}"/>
 #if($isDark)
-  <link rel="stylesheet" href="../../META-INF/resources/theme/css/theme-skins/dark.css"
-        th:href="@{/theme/css/theme-skins/dark.css}"/>
+  <link rel="stylesheet" th:href="@{/theme/css/theme-skins/dark.css}"/>
 #end
 </head>
 <body class="$themeSkin header-fixed header-fixed-space-default">
@@ -36,14 +34,13 @@
   </div>
   <footer th:replace="layouts/footer :: footer">&nbsp;</footer>
 </div>
-<script src="../../META-INF/resources/dojo/dojo/dojo.js" th:src="@{/dojo/dojo/dojo.js}"
-        data-dojo-config="async: true"></script>
-<script src="../../META-INF/resources/dojo/jquery.js" th:src="@{/dojo/jquery.js}"></script>
+<script th:src="@{/dojo/dojo/dojo.js}" data-dojo-config="async: true"></script>
+<script th:src="@{/dojo/jquery.js}"></script>
 <script th:inline="javascript">
   /*<![CDATA[*/
   require(['baf/main', 'jquery', 'jquery/migrate', 'bootstrap', 'dojo/domReady!'],
       function (app) {
-        app.startup([[${execInfo.templateName}]]);
+        app.startup([[${execInfo.templateName}]], [[${#ctx.locale}]]);
       });
   /*]]>*/
 </script>

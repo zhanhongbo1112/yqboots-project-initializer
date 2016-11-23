@@ -7,11 +7,6 @@
       xmlns:yq="http://www.yqboots.com" xmlns="http://www.w3.org/1999/xhtml" layout:decorator="layouts/layout">
 <head>
   <title th:text="Domain Management">Domain Management</title>
-  <link rel="stylesheet" href="../../../META-INF/resources/theme/application.css" th:remove="all"/>
-  <link rel="stylesheet" href="../../../META-INF/resources/theme/css/theme-colors/green.css" th:remove="all"/>
-  <link rel="stylesheet" href="../../../META-INF/resources/dojo/jquery/skyforms/css/sky-forms.css" th:remove="all"/>
-  <link rel="stylesheet" href="../../../META-INF/resources/dojo/jquery/skyforms/custom/custom-sky-forms.css"
-        th:remove="all"/>
 </head>
 <body>
 <div layout:fragment="breadcrumbs">
@@ -27,7 +22,7 @@
         <section>
           <label class="label" th:text="$item.getClassField()">$item.getClassField()</label>
           <label class="input">
-            <input type="text" th:field="*{$item.getClassField()}" th:errorclass="state-error"/>
+            <input type="text" th:field="*{$item.getClassField()}"/>
           </label>
 
           <p th:if="${#fields.hasErrors('$item.getClassField()')}" th:errors="*{$item.getClassField()}"></p>
@@ -35,13 +30,11 @@
 #end
       </fieldset>
       <footer>
-        <button type="submit" class="btn-u" th:text="#{T0012}">Submit</button>
-        <button type="reset" class="btn-u" th:text="#{T0013}">Reset</button>
+        <button class="btn-u rounded" id="submit" type="submit" th:text="#{T0012}">Submit</button>
+        <button class="btn-u rounded" id="cancel" type="button" th:text="#{T0066}">Cancel</button>
       </footer>
     </form>
   </div>
 </div>
-<script src="../../../META-INF/resources/dojo/jquery.js" th:remove="all"></script>
-<script src="../../../META-INF/resources/dojo/bootstrap.js" th:remove="all"></script>
 </body>
 </html>
