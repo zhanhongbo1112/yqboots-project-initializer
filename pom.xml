@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.spring.platform</groupId>
         <artifactId>platform-bom</artifactId>
-        <version>2.0.3.RELEASE</version>
+        <version>2.0.8.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -18,36 +18,49 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <yqboots.project.version>1.0.0</yqboots.project.version>
+        <yqboots.version>1.1.0</yqboots.version>
         <poi.version>3.14</poi.version>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.yqboots.project</groupId>
-            <artifactId>project-fss</artifactId>
-            <version>${yqboots.project.version}</version>
+            <groupId>com.yqboots.fss</groupId>
+            <artifactId>yqboots-fss-core</artifactId>
+            <version>${yqboots.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.yqboots.project</groupId>
-            <artifactId>project-thymeleaf</artifactId>
-            <version>${yqboots.project.version}</version>
+            <groupId>com.yqboots.menu</groupId>
+            <artifactId>yqboots-menu-core</artifactId>
+            <version>${yqboots.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.yqboots.project</groupId>
-            <artifactId>project-menu</artifactId>
-            <version>${yqboots.project.version}</version>
+            <groupId>com.yqboots.dict</groupId>
+            <artifactId>yqboots-dict-core</artifactId>
+            <version>${yqboots.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.yqboots.project</groupId>
-            <artifactId>project-data-dict</artifactId>
-            <version>${yqboots.project.version}</version>
+            <groupId>com.yqboots.web</groupId>
+            <artifactId>yqboots-web-core</artifactId>
+            <version>${yqboots.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.yqboots.project</groupId>
-            <artifactId>project-layout</artifactId>
-            <version>${yqboots.project.version}</version>
+            <groupId>com.yqboots.web</groupId>
+            <artifactId>yqboots-web-layout</artifactId>
+            <version>${yqboots.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yqboots.web</groupId>
+            <artifactId>yqboots-web-thymeleaf</artifactId>
+            <version>${yqboots.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
@@ -95,7 +108,8 @@
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
-                            <mainClass>com.yqboots.project.initializer.Application</mainClass>
+                            <mainClass>com.yqboots.initializer.Application</mainClass>
+                            <excludeDevtools>true</excludeDevtools>
                         </configuration>
                     </plugin>
                 </plugins>
