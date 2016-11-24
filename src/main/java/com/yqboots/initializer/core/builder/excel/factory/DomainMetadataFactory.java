@@ -53,6 +53,7 @@ public class DomainMetadataFactory {
 
             final String module = row.getCell(0).getStringCellValue();
             final String domain = row.getCell(1).getStringCellValue();
+            final boolean generated = row.getCell(2).getBooleanCellValue();
 
             final List<DomainMetadataProperty> metadataProperties = new ArrayList<>();
             while ((i + 1) <= total && point < startingPoints.get(i + 1)) {
@@ -67,7 +68,9 @@ public class DomainMetadataFactory {
                 }
             }
 
-            results.add(new DomainMetadata(module, domain, metadataProperties));
+            if (!generated) { // may be no need to generate any more, cause generated before or embedded
+                results.add(new DomainMetadata(module, domain, metadataProperties));
+            }
         }
 
         return results;

@@ -75,6 +75,10 @@ public class DomainSheetBuilder extends AbstractSheetBuilder {
         Assert.isTrue(StringUtils.equalsIgnoreCase(mergedCell.getStringCellValue(), "Domain Name"),
                 "Column 'Domain Name' is required");
 
+        mergedCell = mergedRow.getCell(2);
+        Assert.isTrue(StringUtils.equalsIgnoreCase(mergedCell.getStringCellValue(), "Generated"),
+                "Column 'Generated' is required");
+
         Row row = sheet.getRow(1);
         Assert.isTrue(StringUtils.equalsIgnoreCase(row.getCell(2).getStringCellValue(), "DB Column"),
                 "Column 'DB Column' is required");
