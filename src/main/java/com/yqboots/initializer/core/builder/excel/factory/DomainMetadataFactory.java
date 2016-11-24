@@ -164,27 +164,27 @@ public class DomainMetadataFactory {
     private static DomainMetadataProperty getMetadataProperty(final Row row) {
         final DomainMetadataProperty result = new DomainMetadataProperty();
 
-        Cell cell = row.getCell(2);
+        Cell cell = row.getCell(3);
         if (cell != null) {
             result.setDbColumn(cell.getStringCellValue());
         }
-        cell = row.getCell(3);
+        cell = row.getCell(4);
         if (cell != null) {
             result.setClassField(cell.getStringCellValue());
         }
-        cell = row.getCell(4);
+        cell = row.getCell(5);
         if (cell != null) {
             result.setFieldType(cell.getStringCellValue());
         }
-        cell = row.getCell(5);
+        cell = row.getCell(6);
         if (cell != null && cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
             result.setNullable(cell.getBooleanCellValue());
         }
-        cell = row.getCell(6);
+        cell = row.getCell(7);
         if (cell != null && cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
             result.setUnique(cell.getBooleanCellValue());
         }
-        cell = row.getCell(7);
+        cell = row.getCell(8);
         if (cell != null) {
             switch (cell.getCellType()) {
                 case Cell.CELL_TYPE_NUMERIC:

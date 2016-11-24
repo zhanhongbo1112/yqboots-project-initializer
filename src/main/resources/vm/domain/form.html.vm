@@ -6,7 +6,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:yq="http://www.yqboots.com" xmlns="http://www.w3.org/1999/xhtml" layout:decorator="layouts/layout">
 <head>
-  <title th:text="Domain Management">Domain Management</title>
+  <title>Domain Management</title>
 </head>
 <body>
 <div layout:fragment="breadcrumbs">

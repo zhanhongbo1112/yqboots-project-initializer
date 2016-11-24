@@ -80,11 +80,11 @@ public class DomainSheetBuilder extends AbstractSheetBuilder {
                 "Column 'Generated' is required");
 
         Row row = sheet.getRow(1);
-        Assert.isTrue(StringUtils.equalsIgnoreCase(row.getCell(2).getStringCellValue(), "DB Column"),
+        Assert.isTrue(StringUtils.equalsIgnoreCase(row.getCell(3).getStringCellValue(), "DB Column"),
                 "Column 'DB Column' is required");
-        Assert.isTrue(StringUtils.equalsIgnoreCase(row.getCell(3).getStringCellValue(), "Class Field"),
+        Assert.isTrue(StringUtils.equalsIgnoreCase(row.getCell(4).getStringCellValue(), "Class Field"),
                 "Column 'Class Field' is required");
-        Assert.isTrue(StringUtils.equalsIgnoreCase(row.getCell(4).getStringCellValue(), "Field Type"),
+        Assert.isTrue(StringUtils.equalsIgnoreCase(row.getCell(5).getStringCellValue(), "Field Type"),
                 "Column 'Field Type' is required");
     }
 

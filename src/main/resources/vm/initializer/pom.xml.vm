@@ -36,6 +36,11 @@
             <artifactId>yqboots-web-thymeleaf</artifactId>
             <version>${yqboots.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.yqboots.web</groupId>
+            <artifactId>yqboots-web-layout</artifactId>
+            <version>${yqboots.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

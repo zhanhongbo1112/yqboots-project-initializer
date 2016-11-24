@@ -105,10 +105,21 @@ public class DataDictSheetBuilder extends AbstractSheetBuilder {
 
     private static DataDict getDataDicts(final Row row) {
         DataDict result = new DataDict();
-        result.setName(row.getCell(0).getStringCellValue());
-        result.setText(row.getCell(1).getStringCellValue());
-        result.setValue(row.getCell(2).getStringCellValue());
-        result.setDescription(row.getCell(3).getStringCellValue());
+        Assert.notNull(row.getCell(0));
+        Assert.notNull(row.getCell(1));
+        Assert.notNull(row.getCell(2));
+
+        Cell cell = row.getCell(0);
+        result.setName(cell.getStringCellValue());
+        cell = row.getCell(1);
+        result.setText(cell.getStringCellValue());
+        cell = row.getCell(2);
+        result.setValue(cell.getStringCellValue());
+        cell = row.getCell(3);
+        if (cell != null) {
+            result.setDescription(cell.getStringCellValue());
+        }
+
         return result;
     }
 }
