@@ -17,7 +17,7 @@
  */
 package com.yqboots.initializer.core;
 
-import com.yqboots.initializer.Application;
+import com.yqboots.Application;
 import com.yqboots.initializer.core.theme.Theme;
 import com.yqboots.initializer.core.theme.ThemeColor;
 import com.yqboots.initializer.core.theme.ThemeSkin;

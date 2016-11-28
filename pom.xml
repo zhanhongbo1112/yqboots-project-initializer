@@ -108,7 +108,7 @@
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
-                            <mainClass>com.yqboots.initializer.Application</mainClass>
+                            <mainClass>com.yqboots.Application</mainClass>
                             <excludeDevtools>true</excludeDevtools>
                         </configuration>
                     </plugin>

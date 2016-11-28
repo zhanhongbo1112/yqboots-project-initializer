@@ -1,6 +1,6 @@
 package com.yqboots.initializer.core.builder.excel;
 
-import com.yqboots.initializer.Application;
+import com.yqboots.Application;
 import com.yqboots.initializer.autoconfigure.ProjectInitializerProperties;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
