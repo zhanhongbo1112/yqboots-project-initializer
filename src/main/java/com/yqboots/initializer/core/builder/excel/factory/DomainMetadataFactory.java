@@ -63,7 +63,7 @@ public class DomainMetadataFactory {
                     continue;
                 }
                 // DB Column and Class Field should not be empty
-                if (row.getCell(2) != null && row.getCell(3) != null) {
+                if (row.getCell(3) != null && row.getCell(4) != null) {
                     metadataProperties.add(getMetadataProperty(row));
                 }
             }

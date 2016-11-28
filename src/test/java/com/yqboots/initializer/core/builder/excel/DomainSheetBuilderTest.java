@@ -32,8 +32,8 @@ public class DomainSheetBuilderTest {
     @Before
     public void setUp() {
         metadata = new ProjectMetadata();
-        metadata.setGroupId("com.yqboots.test");
-        metadata.setArtifactId("test-core");
+        metadata.setGroupId("com.company.project");
+        metadata.setArtifactId("company-projects");
         metadata.setName("Test Project");
         metadata.setDescription("Test Description");
     }
