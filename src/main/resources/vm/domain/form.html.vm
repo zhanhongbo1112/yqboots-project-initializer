@@ -16,7 +16,7 @@
   <div class="container">
     <form class="sky-form" action="#" th:action="@{$formUrl}" th:object="${model}" method="post">
       <input type="hidden" th:field="*{id}"/>
-      <header th:text="Domain Maintenance Form">Domain Maintenance Form</header>
+      <header>Domain Maintenance Form</header>
       <fieldset>
 #foreach($item in $domain.getProperties())
         <section>

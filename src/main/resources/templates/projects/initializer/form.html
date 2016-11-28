@@ -26,7 +26,7 @@
               <section class="col col-4">
                 <label class="label">Name:</label>
                 <label class="input">
-                  <input type="text" maxlength="30" th:field="*{metadata.name}" th:errorclass="state-error"/>
+                  <input type="text" maxlength="30" th:field="*{metadata.name}"/>
                   <b class="tooltip tooltip-top-right">Project Name</b>
                 </label>
 
@@ -35,7 +35,7 @@
               <section class="col col-8">
                 <label class="label">Description:</label>
                 <label class="input">
-                  <input type="text" th:field="*{metadata.description}" maxlength="64" th:errorclass="state-error"/>
+                  <input type="text" th:field="*{metadata.description}" maxlength="64"/>
                   <b class="tooltip tooltip-top-right">Some description about the project</b>
                 </label>
 
@@ -46,7 +46,7 @@
               <section class="col col-6">
                 <label class="label">Group:</label>
                 <label class="input">
-                  <input type="text" th:field="*{metadata.groupId}" maxlength="30" th:errorclass="state-error"/>
+                  <input type="text" th:field="*{metadata.groupId}" maxlength="30"/>
                   <b class="tooltip tooltip-top-right">For example: com.company.project</b>
                 </label>
 
@@ -55,7 +55,7 @@
               <section class="col col-6">
                 <label class="label">Artifact:</label>
                 <label class="input">
-                  <input type="text" th:field="*{metadata.artifactId}" maxlength="20" th:errorclass="state-error"/>
+                  <input type="text" th:field="*{metadata.artifactId}" maxlength="20"/>
                   <b class="tooltip tooltip-top-right">For example: project-core</b>
                 </label>
 
@@ -106,17 +106,17 @@
               <label class="label">Input a File (Excel Format)</label>
               <label class="input input-file">
                 <div class="button">
-                  <input name="file" type="file" th:field="*{file}"
-                         onchange="this.parentNode.nextSibling.value = this.value"/>Browse
-                </div><input type="text" readonly="readonly"/>
+                  <input name="file" type="file" th:field="*{file}" />Browse
+                </div>
+                <input type="text" readonly="readonly"/>
               </label>
             </section>
           </fieldset>
         </div>
       </div>
       <footer>
-        <button type="submit" class="btn-u">Submit</button>
-        <button type="reset" class="btn-u">Reset</button>
+        <button class="btn-u rounded" id="submit" type="submit" th:text="#{T0012}">Submit</button>
+        <button class="btn-u rounded" id="cancel" type="button" th:text="#{T0066}">Cancel</button>
       </footer>
     </form>
   </div>

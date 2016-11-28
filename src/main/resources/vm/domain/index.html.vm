@@ -18,28 +18,24 @@
       <div class="col-md-4">
         <form action="#" th:action="@{$baseUrl}" th:object="${searchForm}" method="post">
           <div class="input-group">
-            <input type="text" th:field="*{criterion}" class="form-control" placeholder="Search"
-                   th:placeholder="#{T0007}"/>
+            <input type="text" th:field="*{criterion}" class="form-control" th:placeholder="#{T0007}"/>
             <span class="input-group-btn">
                 <button class="btn-u" type="submit" th:text="#{T0007}">Search</button>
+                <button type="button" class="btn-u dropdown-toggle" data-toggle="dropdown">
+                 <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                      <a th:title="#{T0010}" th:href="@{$baseUrl(action='new')}">
+                        <i class="glyphicon glyphicon-plus"></i> <span th:text="#{T0010}">New</span>
+                      </a>
+                    </li>
+                </ul>
             </span>
           </div>
         </form>
       </div>
-      <div class="col-md-8">
-        <div class="btn-group pull-right">
-          <button type="button" class="btn-u dropdown-toggle" data-toggle="dropdown">
-            <span th:text="#{T0011}">Action</span> <i class="fa fa-angle-down"></i>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li>
-              <a href="#" title="New" th:title="#{T0010}" th:href="@{$baseUrl(action='new')}">
-                <i class="glyphicon glyphicon-plus"></i> <span th:text="#{T0010}">New</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <div class="col-md-8"></div>
     </div>
     <div class="divider divider-blank"></div>
     <div class="panel margin-bottom-40">
@@ -62,10 +58,10 @@
           <td th:text="$text">$item.getClassField()</td>
 #end
           <td>
-            <a href="#" th:href="@{$baseUrl(id=${item.id},action='update')}" title="Update">
+            <a th:href="@{$baseUrl(id=${item.id},action='update')}">
               <i class="glyphicon glyphicon-pencil"></i>
             </a>
-            <a href="#" th:href="@{$baseUrl(id=${item.id},action='delete')}" title="Delete">
+            <a th:href="@{$baseUrl(id=${item.id},action='delete')}">
               <i class="glyphicon glyphicon-remove-sign"></i>
             </a>
           </td>
