@@ -1,5 +1,5 @@
-#set($domainName = $domain.getName())
-#set($baseViewUrl = $domain.getModule() + "/" + $domainName)
+#set($menuName = $domain.getModule() + "_" + $domain.getName())
+#set($baseViewUrl = $domain.getModule() + "/" + $domain.getName())
 #set($baseUrl = "/" + $baseViewUrl)
 #set($colspan = $domain.getProperties().size() + 1)
 <!DOCTYPE html>
@@ -10,7 +10,7 @@
 </head>
 <body>
 <div layout:fragment="breadcrumbs">
-  <yq:breadcrumbs menu="$domainName"/>
+  <yq:breadcrumbs menu="$menuName"/>
 </div>
 <div layout:fragment="content" class="content content-sm height-600">
   <div class="container table-responsive">

@@ -27,28 +27,24 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.yqboots.web</groupId>
-            <artifactId>yqboots-web-core</artifactId>
+            <groupId>com.yqboots.dict</groupId>
+            <artifactId>yqboots-dict-web</artifactId>
             <version>${yqboots.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.yqboots.web</groupId>
-            <artifactId>yqboots-web-thymeleaf</artifactId>
+            <groupId>com.yqboots.menu</groupId>
+            <artifactId>yqboots-menu-web</artifactId>
             <version>${yqboots.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.yqboots.web</groupId>
-            <artifactId>yqboots-web-layout</artifactId>
+            <groupId>com.yqboots.fss</groupId>
+            <artifactId>yqboots-fss-web</artifactId>
             <version>${yqboots.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <groupId>com.yqboots.security</groupId>
+            <artifactId>yqboots-security-web</artifactId>
+            <version>${yqboots.version}</version>
         </dependency>
 
         <dependency>

@@ -62,7 +62,10 @@ public class ProjectInitializerAutoConfiguration {
         List<FileBuilder> builders = new ArrayList<>();
         builders.add(new FileTemplateBuilder("pom.xml.vm", "/pom.xml"));
         builders.add(new JavaFileBuilder("Application.java.vm", "/Application.java"));
+        builders.add(new JavaFileBuilder("HomeController.java.vm", "/web/controller/HomeController.java"));
         builders.add(new ResourcesFileBuilder("layout.html.vm", "/templates/layouts/layout.html"));
+        builders.add(new ResourcesFileBuilder("import.sql.vm", "/import.sql"));
+        builders.add(new ResourcesFileBuilder("logback-spring.xml.vm", "/logback-spring.xml"));
         builders.add(configuration.projectFileBuilder());
 
         return builders;
