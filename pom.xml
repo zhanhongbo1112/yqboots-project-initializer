@@ -24,17 +24,17 @@
     <dependencies>
         <dependency>
             <groupId>com.yqboots.fss</groupId>
-            <artifactId>yqboots-fss-core</artifactId>
+            <artifactId>yqboots-fss-web</artifactId>
             <version>${yqboots.version}</version>
         </dependency>
         <dependency>
             <groupId>com.yqboots.menu</groupId>
-            <artifactId>yqboots-menu-core</artifactId>
+            <artifactId>yqboots-menu-web</artifactId>
             <version>${yqboots.version}</version>
         </dependency>
         <dependency>
             <groupId>com.yqboots.dict</groupId>
-            <artifactId>yqboots-dict-core</artifactId>
+            <artifactId>yqboots-dict-web</artifactId>
             <version>${yqboots.version}</version>
         </dependency>
         <dependency>
