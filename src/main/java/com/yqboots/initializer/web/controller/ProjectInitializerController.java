@@ -49,7 +49,7 @@ import java.nio.file.Path;
 @Controller
 @RequestMapping(value = "/projects/initializer")
 public class ProjectInitializerController {
-    public static final String HOME_URL = "projects/initializer/form";
+    public static final String FORM_URL = "projects/initializer/form";
 
     @Autowired
     private ProjectInitializer initializer;
@@ -59,9 +59,9 @@ public class ProjectInitializerController {
         return new ProjectInitializerForm();
     }
 
-    @RequestMapping
-    public String index() {
-        return HOME_URL;
+    @RequestMapping(value = "/form")
+    public String form() {
+        return FORM_URL;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
@@ -69,7 +69,7 @@ public class ProjectInitializerController {
                           final BindingResult bindingResult,
                           final ModelMap model) throws IOException {
         if (bindingResult.hasErrors()) {
-            return HOME_URL;
+            return FORM_URL;
         }
 
         Path path;

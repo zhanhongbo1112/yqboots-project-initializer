@@ -39,6 +39,6 @@ public class Application {
 
     @RequestMapping(value = "/")
     public String home() {
-        return "redirect:projects/initializer";
+        return "redirect:projects/initializer/form";
     }
 }
