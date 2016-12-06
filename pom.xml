@@ -101,7 +101,7 @@
 
     <profiles>
         <profile>
-            <id>test</id>
+            <id>development</id>
             <build>
                 <plugins>
                     <plugin>
