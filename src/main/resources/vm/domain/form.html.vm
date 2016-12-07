@@ -20,7 +20,7 @@
       <fieldset>
 #foreach($item in $domain.getProperties())
         <section>
-          <label class="label" th:text="$item.getClassField()">$item.getClassField()</label>
+          <label class="label">$item.getClassField()</label>
           <label class="input">
             <input type="text" th:field="*{$item.getClassField()}"/>
           </label>
