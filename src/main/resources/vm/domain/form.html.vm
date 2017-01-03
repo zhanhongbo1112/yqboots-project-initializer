@@ -30,8 +30,8 @@
 #end
       </fieldset>
       <footer>
-        <button class="btn-u rounded" id="submit" type="submit" th:text="#{T0012}">Submit</button>
-        <button class="btn-u rounded" id="cancel" type="button" th:text="#{T0066}">Cancel</button>
+        <button class="btn-u rounded" id="submit" type="submit">Submit</button>
+        <button class="btn-u rounded" id="cancel" type="button">Cancel</button>
       </footer>
     </form>
   </div>

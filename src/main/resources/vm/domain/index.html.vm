@@ -18,16 +18,16 @@
       <div class="col-md-4">
         <form action="#" th:action="@{$baseUrl}" th:object="${searchForm}" method="post">
           <div class="input-group">
-            <input type="text" th:field="*{criterion}" class="form-control" th:placeholder="#{T0007}"/>
+            <input type="text" th:field="*{criterion}" class="form-control"/>
             <span class="input-group-btn">
-                <button class="btn-u" type="submit" th:text="#{T0007}">Search</button>
+                <button class="btn-u" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 <button type="button" class="btn-u dropdown-toggle" data-toggle="dropdown">
                  <i class="fa fa-angle-down"></i>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                      <a th:title="#{T0010}" th:href="@{$baseUrl(action='new')}">
-                        <i class="glyphicon glyphicon-plus"></i> <span th:text="#{T0010}">New</span>
+                      <a th:href="@{$baseUrl(action='new')}">
+                        <i class="glyphicon glyphicon-plus"></i> <span>New</span>
                       </a>
                     </li>
                 </ul>
