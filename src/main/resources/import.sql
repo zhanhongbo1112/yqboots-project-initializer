@@ -1,4 +1,4 @@
-INSERT INTO PRJ_MENUITEM (NAME, URL, MENU_GROUP, MENU_ITEM_GROUP) VALUES ('PROJECTS_INITIALIZER', '/projects/initializer', 'PROJECTS', 'OPEN_SOURCE');
+INSERT INTO PRJ_MENUITEM (NAME, URL, MENU_GROUP, MENU_ITEM_GROUP, SEQUENTIAL_ORDER) VALUES ('PROJECTS_INITIALIZER', '/projects/initializer', 'PROJECTS', 'OPEN_SOURCE', 1);
 
 insert into PRJ_DATA_DICT (name, text, value, description) values ('THEME_SKIN', 'Light', 'LIGHT', '');
 insert into PRJ_DATA_DICT (name, text, value, description) values ('THEME_SKIN_zh_CN', '淡色调', 'LIGHT', '');
